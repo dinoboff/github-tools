@@ -1,8 +1,11 @@
 from paver.easy import *
 from paver.setuputils import setup
-from paver.virtual import bootstrap
 from setuptools import find_packages
-import paver.doctools
+try:
+    from paver.virtual import bootstrap
+    import paver.doctools
+except:
+    print """bootstrap and doctool tasks are not available...""" 
 
 version = '0.1.0'
 
