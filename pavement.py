@@ -25,27 +25,28 @@ entry_points="""
     # -*- Entry points: -*-
     """
 
+setup(name='github.tools',
+    version=version,
+    description='Helpers for hosting  python projects on GitHub',
+    long_description=long_description,
+    classifiers=classifiers,
+    keywords='',
+    author='Damien Lebrun',
+    author_email='dinoboff@hotmail.com',
+    url='',
+    license='BSD',
+    packages = find_packages('src'),
+    package_dir = {'': 'src'},
+    namespace_packages=['github'],
+    include_package_data=True,
+    test_suite='nose.collector',
+    test_requires=['Nose'],  
+    zip_safe=False,
+    install_requires=install_requires,
+    entry_points=entry_points,
+    )
+
 options(
-    setup=dict(name='github.tools',
-        version=version,
-        description='Helpers for hosting  python projects on GitHub',
-        long_description=long_description,
-        classifiers=classifiers,
-        keywords='',
-        author='Damien Lebrun',
-        author_email='dinoboff@hotmail.com',
-        url='',
-        license='BSD',
-        packages = find_packages('src'),
-        package_dir = {'': 'src'},
-        namespace_packages=['github'],
-        include_package_data=True,
-        test_suite='nose.collector',
-        test_requires=['Nose'],  
-        zip_safe=False,
-        install_requires=install_requires,
-        entry_points=entry_points,
-        ),
     virtualenv=Bunch(
         script_name='bootstrap.py'
         ),
