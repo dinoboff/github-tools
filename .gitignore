@@ -1,0 +1,7 @@
+bin/*
+lib/*
+include/*
+dist/*
+src/github.tools.egg*
+paver-minilib.zip
+setup.py
