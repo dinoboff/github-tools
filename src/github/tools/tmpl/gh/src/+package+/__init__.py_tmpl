@@ -1,0 +1,11 @@
+_version = (0, 1, 0, 'alpha', 1)
+
+project = ${repr($project)}
+description = ${repr($description)}
+version = '%s.%s' % _version[0:2]
+release = '%s.%s.%s%.1s%s' % _version[0:5]
+author = ${repr($author)}
+author_email = ${repr($author_email)}
+copyright = u'$year, %s' % author
+licence = ${repr($licence)}
+licence_notice = ${repr($licence_body)}
