@@ -4,4 +4,4 @@ include/*
 dist/*
 src/github.tools.egg*
 paver-minilib.zip
-
+*.pyc
