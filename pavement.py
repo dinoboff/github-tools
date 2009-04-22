@@ -1,13 +1,19 @@
+import os
+import sys
+
 from paver.easy import *
 from paver.setuputils import setup
 from setuptools import find_packages
+
 try:
     from paver.virtual import bootstrap
-    import paver.doctools
 except:
-    print """bootstrap and doctool tasks are not available...""" 
+    print "bootstrap task not available"
 
-version = '0.1.0'
+_here = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, os.path.join(_here, 'src'))
+
+from github.tools import project, release as version, author, author_email, description, licence
 
 long_description = open('README.rst', 'r').read()
 
@@ -21,29 +27,32 @@ install_requires = [
     'Sphinx',
     'Paver',
     'PasteScript',
-    'Cheetah'
+    'Cheetah',
+    'virtualenv',
+    'GitPython'
     ]
 
 entry_points="""
     # -*- Entry points: -*-
+    [paste.paster_create_template]
+    gh_package = github.tools.template:GithubTemplate
     """
 
-setup(name='github.tools',
+setup(name=project,
     version=version,
-    description='Helpers for hosting  python projects on GitHub',
+    description=description,
     long_description=long_description,
     classifiers=classifiers,
     keywords='',
-    author='Damien Lebrun',
-    author_email='dinoboff@hotmail.com',
+    author=author,
+    author_email=author_email,
     url='',
-    license='BSD',
+    license=licence,
     packages = find_packages('src'),
     package_dir = {'': 'src'},
     namespace_packages=['github'],
     include_package_data=True,
     test_suite='nose.collector',
-    test_requires=['Nose'],  
     zip_safe=False,
     install_requires=install_requires,
     entry_points=entry_points,
@@ -53,9 +62,18 @@ options(
     virtualenv=Bunch(
         script_name='bootstrap.py'
         ),
+    sphinx=Bunch(
+        docroot='docs',
+        builddir='build',
+        sourcedir='source',
+        ),
     )
+
 
 @task
 @needs('generate_setup', 'minilib', 'setuptools.command.sdist')
 def sdist():
     """Overrides sdist to make sure that our setup.py is generated."""
+    
+    
+    
