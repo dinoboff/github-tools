@@ -60,7 +60,12 @@ setup(name=project,
 
 options(
     virtualenv=Bunch(
-        script_name='bootstrap.py'
+        script_name='bootstrap.py',
+           packages_to_install=[
+            'Sphinx',
+            'virtualenv',
+            'Nose'
+            ]
         ),
     sphinx=Bunch(
         docroot='docs',
@@ -74,6 +79,4 @@ options(
 @needs('generate_setup', 'minilib', 'setuptools.command.sdist')
 def sdist():
     """Overrides sdist to make sure that our setup.py is generated."""
-    
-    
     

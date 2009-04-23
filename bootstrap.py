@@ -975,6 +975,9 @@ def after_install(options, home_dir):
     else:
         bin_dir = join(home_dir, 'bin')
     subprocess.call([join(bin_dir, 'easy_install'), 'paver==1.0'])
+    subprocess.call([join(bin_dir, 'easy_install'), 'Sphinx'])
+    subprocess.call([join(bin_dir, 'easy_install'), 'virtualenv'])
+    subprocess.call([join(bin_dir, 'easy_install'), 'Nose'])
 
 
 ##file site.py
