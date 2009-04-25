@@ -8,6 +8,7 @@ from setuptools import find_packages
 try:
     # import here packages only needed for development
     from paver.virtual import bootstrap
+    from github.tools.task import *
 except:
     pass
 

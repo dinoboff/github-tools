@@ -6,6 +6,7 @@ from paver.setuputils import setup
 from setuptools import find_packages
 
 try:
+    from github.tools.task import *
     from paver.virtual import bootstrap
 except:
     print "bootstrap task not available"
