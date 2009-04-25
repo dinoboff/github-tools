@@ -2,6 +2,5 @@ bin/*
 lib/*
 include/*
 dist/*
-src/github.tools.egg*
-paver-minilib.zip
+src/*.egg-info/*
 *.pyc
