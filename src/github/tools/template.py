@@ -81,7 +81,8 @@ class GithubTemplate(Template):
         return Template.check_vars(self, vars, command)
     
     def pre(self, command, output_dir, vars):
-        vars['year'] = YEAR    
+        vars['year'] = YEAR 
+        vars['gitignore'] = '.gitignore'
         licence = vars.get('licence')
         vars['licence_body'] = ''
         print 'licence: ', licence

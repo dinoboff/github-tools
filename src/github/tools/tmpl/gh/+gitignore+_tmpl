@@ -1,0 +1,4 @@
+virtual-env/*
+dist/*
+src/${project}.egg-info/*
+*.pyc
