@@ -44,7 +44,6 @@ class GitHubProject(object):
     """
     GitHub project class
     """
-    PROJECT_URL_TEMPLATE = 'git@github.com:%s/%s.git'
     
     def __init__(self,
                 name= None,
@@ -55,20 +54,11 @@ class GitHubProject(object):
         self.owner = owner
         self.description = description
         self.is_public = is_public
+        self._url = ProjectUrl(self)
     
-    @property 
+    @property
     def url(self):
-        """
-        return project url on github
-        """ 
-        if self.name is None:
-            raise AttributeError('Project name not defined')
-        if self.owner is None:
-            self.owner = Credentials.get_credentials(self.repo).user
-        if not self.owner:
-            raise AttributeError('The project owner or the github user need to be set.')
-        return self.PROJECT_URL_TEMPLATE % (
-            self.owner, self.name)
+        return self._url
     
     @classmethod
     def create(cls,
@@ -103,6 +93,41 @@ class GitHubProject(object):
             owner=details['owner'],
             description=details['description'],
             is_public= not details['private'])
+
+
+class ProjectUrl(object):
+    _tmpls = dict(
+        ssh='git@github.com:%s/%s.git',
+        git='git://github.com/%s/%s.git',
+        http='http://github.com/%s/%s'
+        )
+    
+    def __init__(self, project):
+        self.project = project
+    
+    @property  
+    def ssh(self):
+        return self._url('ssh')
+    
+    @property  
+    def git(self):
+        return self._url('git')
+    
+    @property  
+    def http(self):
+        return self._url('http')
+        
+    def _url(self, protocol='ssh'):
+        if self.project.name is None:
+            raise AttributeError('Project name not defined')
+        if self.project.owner is None:
+            self.project.owner = Credentials.get_credentials(self.repo).user
+        if not self.project.owner:
+            raise AttributeError('The project owner or the github user need to be set.')
+        return self._tmpls[protocol] % (self.project.owner, self.project.name)
+        
+    def __str__(self):
+        return self.http
 
 
 class Repo(_Repo):
@@ -141,7 +166,8 @@ class GitHubRepo(Repo):
     def register(self,
         project_name, credentials=None,
         description='', is_public=True,
-        remote_name='origin'):
+        remote_name='origin',
+        master_branch='master'):
         """
         Add the project to GitHub 
         """
@@ -150,10 +176,12 @@ class GitHubRepo(Repo):
         project = GitHubProject.create(
            project_name, credentials=credentials,
            description=description, is_public=is_public)
-        self.git.remote('add', remote_name, project.url)
-        self.git.push(remote_name, 'master')
+        self.git.remote('add', remote_name, project.url.ssh)
+        self.git.push(remote_name, master_branch)
+        return project
         
-    def add_gh_pages_submodule(self, project_url, gh_pages_path):
+    def add_gh_pages_submodule(self, gh_pages_path, remote_name='origin'):
+        project_url = self.git.config('remote.%s.url' % remote_name).strip()
         self.submodules.add(project_url, gh_pages_path)
         
         #create gh-pages branch
@@ -166,7 +194,7 @@ class GitHubRepo(Repo):
             f.write('Documentation coming soon...')
         gh_pages.git.add('index.html')
         gh_pages.git.commit('-m', 'initial commit')
-        gh_pages.push('origin', 'gh-pages')
+        gh_pages.git.push('origin', 'gh-pages')
         
         # update submodule
         self.git.add(gh_pages_path)
@@ -189,6 +217,9 @@ class Submodule(object):
             self.repo.git.submodule('add', self.url, self.path)
             self.repo.git.submodule('init', self.path)
             self.repo.git.commit('-m', msg)
+    
+    def update(self):
+        self.repo.git.submodule('update', self.path)
 
 
 class SubmoduleDict(dict):
@@ -199,7 +230,7 @@ class SubmoduleDict(dict):
         
     def __getitem__(self, path):
         self._get_submodules()
-        return super(SubmoduleDict, self).__getitem__(path)
+        return super(SubmoduleDict, self).__getitem__(path.rstrip('/'))
     
     def __setitem__(self, path, module):
         if module.path not in self:
