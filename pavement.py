@@ -20,7 +20,15 @@ long_description = open('README.rst', 'r').read()
 
 classifiers = [
     # Get more strings from http://www.python.org/pypi?%3Aaction=list_classifiers
-    "Programming Language :: Python",
+    "Programming Language :: Python :: 2.5", # not yet tested on python 2.6
+    "Development Status :: 3 - Alpha",
+    "Environment :: Console",
+    "Framework :: Paste",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: BSD License",
+    "Operating System :: POSIX :: Linux", # Not tested yet on osx or Windows
+    "Topic :: Documentation",
+    "Topic :: Software Development :: Version Control"
     ]
 
 install_requires = [
@@ -49,10 +57,10 @@ setup(name=project,
     description=description,
     long_description=long_description,
     classifiers=classifiers,
-    keywords='',
+    keywords='sphinx, github, paster',
     author=author,
     author_email=author_email,
-    url='',
+    url='http://dinoboff.github.com/github-tools/',
     license=licence,
     packages = find_packages('src'),
     package_dir = {'': 'src'},
@@ -68,7 +76,7 @@ options(
     virtualenv=Bunch(
         script_name='bootstrap.py',
            packages_to_install=[
-            'Sphinx',
+            'github-tools',
             'virtualenv',
             'Nose'
             ]
