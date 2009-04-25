@@ -9,7 +9,7 @@ Install:
 
 Assuming ``setuptools`` is installed, execute the following command line::
 
-	easy_install github.tools
+	easy_install github-tools
 
 or just downloads the last release at http://github.com/dinoboff/github.tools/downloads,
 extract its content and run::
@@ -19,4 +19,4 @@ extract its content and run::
 Usage:
 ------
 
-todo
+See http://dinoboff.github.com/github-tools/

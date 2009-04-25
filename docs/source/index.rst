@@ -21,7 +21,7 @@ Installation:
 
 Assuming easy_install is installed, simple execute...::
 
-	easy_install github.tools
+	easy_install github-tools
 	
 Usage:
 ------
