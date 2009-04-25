@@ -261,8 +261,11 @@ class SubmoduleDict(dict):
             path   = cfg.get(section, 'path')
             url    = cfg.get(section, 'url')
             info   = self.repo.git.submodule('status', path)
-            status = info[0]
-            sha    = info[1:41]
+            status = None
+            sha = None
+            if info:
+                status = info[0]
+                sha    = info[1:41]
             module = Submodule(self.repo, url, path, sha=sha, status=status)
             super(SubmoduleDict, self).__setitem__(
                 module.path,
