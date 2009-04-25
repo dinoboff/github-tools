@@ -1,6 +1,6 @@
-_version = (0, 1, 0, 'alpha', 1)
+_version = (0, 1, 0, 'alpha', 2)
 
-project = u'github.tools'
+project = u'github-tools'
 description = 'Helpers for hosting  python projects on GitHub'
 version = '%s.%s' % _version[0:2]
 release = '%s.%s.%s%.1s%s' % _version[0:5]
