@@ -32,6 +32,11 @@ install_requires = [
     'GitPython'
     ]
 
+try:
+    import json
+except ImportError:
+    install_requires.append('simplejson')
+
 entry_points="""
     # -*- Entry points: -*-
     [paste.paster_create_template]
