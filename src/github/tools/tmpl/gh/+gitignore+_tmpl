@@ -1,4 +1,6 @@
 virtual-env/*
 dist/*
+build/*
+docs/build/doctree/*
 src/${project}.egg-info/*
 *.pyc
