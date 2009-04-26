@@ -5,7 +5,12 @@ import sys, os
 _here = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.join(_here, '../../../src'))
 
-from github.tools import version, release, project, copyright, author
+import github.tools
+version = github.tools.VERSION
+release = github.tools.RELEASE
+project = github.tools.PROJECT
+copyright = github.tools.COPYRIGHT
+author = github.tools.AUTHOR
 
 # Extension
 extensions = ['sphinx.ext.autodoc', 'sphinx.ext.intersphinx', 'sphinx.ext.todo', 'github.tools.sphinx']

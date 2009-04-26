@@ -14,7 +14,7 @@ except:
 _here = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.join(_here, 'src'))
 
-from github.tools import project, release as version, author, author_email, description, licence
+import github.tools
 
 long_description = open('README.rst', 'r').read()
 
@@ -53,15 +53,15 @@ entry_points="""
     """
 
 setup(name=project,
-    version=version,
-    description=description,
+    version=github.tools.RELEASE,
+    description=github.tools.DESCRIPTION,
     long_description=long_description,
     classifiers=classifiers,
     keywords='sphinx, github, paster',
-    author=author,
-    author_email=author_email,
+    author=github.tools.AUTHOR,
+    author_email=github.tools.AUTHOR_EMAIL,
     url='http://dinoboff.github.com/github-tools/',
-    license=licence,
+    license=github.tools.LICENCE,
     packages = find_packages('src'),
     package_dir = {'': 'src'},
     namespace_packages=['github'],
