@@ -14,6 +14,9 @@ from git import Git
 from github.tools.gh_pages import GitHubRepo, Credentials
 
 def _adjust_options():
+    """
+    Set default sphinx and gh_options.
+    """
     if options.get('_github_tools_options_adjusted') is None:
         options.setdefault('sphinx', Bunch())
         options.setdefault('gh_pages', Bunch())
@@ -22,7 +25,8 @@ def _adjust_options():
             = path( options.sphinx.get('docroot', 'docs'))
         options.sphinx._buildir = buildir = \
             docroot /  options.sphinx.get('builddir', 'build')
-        options.sphinx._sourcedir = docroot /  options.sphinx.get('sourcedir', 'source')
+        options.sphinx._sourcedir = \
+            docroot /  options.sphinx.get('sourcedir', 'source')
         options.sphinx._doctrees = buildir / "doctrees"
         options.sphinx._htmldir = htmldir = \
             buildir / 'html'
@@ -35,19 +39,16 @@ def _adjust_options():
         
         options._github_tools_options_adjusted = True
 
-def _get_repo(wc):
-    git_dir = os.path.join(wc, '.git')
-    if os.path.exists(git_dir) and os.path.isdir(git_dir):
-        return GitHubRepo(wc)
-    sys.exit('%s is not a git directory.' % os.getcwd())
+def _get_repo(working_copy):
+    """
+    Check that a directory is a git working copy.
     
-
-def get_repo_deco(fn):
-    def checker(self, *args, **kw):
-        wc = os.getcwd()
-        kw['_repo'] = _get_repo(wc)
-        return fn(*args, **kw)
-    return checker
+    return a GitHubRepo instance or exit.
+    """
+    git_dir = os.path.join(working_copy, '.git')
+    if os.path.exists(git_dir) and os.path.isdir(git_dir):
+        return GitHubRepo(working_copy)
+    sys.exit('%s is not a git directory.' % os.getcwd())
 
 @task
 def gh_register():
@@ -98,12 +99,12 @@ def gh_doc_clean():
     repo = _get_repo(os.getcwd())
     repo.submodules[options.gh_pages.root].update()
     Git(options.gh_pages.root).pull('origin', 'gh-pages')
-    for f in options.sphinx._htmldir.listdir():
-        if f.isdir():
-            if f.basename() != '.git':
-                f.rmtree()
+    for dir_entry in options.sphinx._htmldir.listdir():
+        if dir_entry.isdir():
+            if dir_entry.basename() != '.git':
+                dir_entry.rmtree()
         else:
-            f.unlink()
+            dir_entry.unlink()
 
 @task
 @needs('github.tools.task.gh_doc_clean')
