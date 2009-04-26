@@ -56,8 +56,8 @@ options(
     virtualenv=Bunch(
         script_name='bootstrap.py',
         packages_to_install=[
-            'Sphinx',
-            'github.tools',
+            'virtualenv',
+            'github-tools',
             'Nose'
             ]
         ),
