@@ -85,7 +85,6 @@ class GithubTemplate(Template):
         vars['gitignore'] = '.gitignore'
         licence = vars.get('licence')
         vars['licence_body'] = ''
-        print 'licence: ', licence
         if licence:
             if licence == 'BSD':
                 licence_tmpl = BSD
