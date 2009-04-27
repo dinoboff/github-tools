@@ -66,6 +66,7 @@ def gh_register():
         is_public=True,
         remote_name='origin')
     if project is not None:
+        info('Opening your project apges:%s', project.url.http)
         webbrowser.open(project.url.http)
 
 @task
