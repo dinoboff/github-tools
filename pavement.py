@@ -52,7 +52,7 @@ entry_points="""
     gh_package = github.tools.template:GithubTemplate
     """
 
-setup(name=project,
+setup(name=github.tools.PROJECT,
     version=github.tools.RELEASE,
     description=github.tools.DESCRIPTION,
     long_description=long_description,
