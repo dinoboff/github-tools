@@ -94,7 +94,6 @@ When your documentation can be published, simply push  gh-pages submodule to Git
 
 You might also want to update the submodule reference::
 
-	cd ../../../
 	git add docs/build/html
 	git commit -m "update gh-pages submodule" 
 
