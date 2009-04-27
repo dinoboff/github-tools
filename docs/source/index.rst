@@ -100,6 +100,8 @@ You might also want to update the submodule reference::
 
 .. toctree::
    :maxdepth: 2
+   
+   template
 
 Indices and tables
 ==================

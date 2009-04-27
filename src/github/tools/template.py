@@ -3,8 +3,51 @@ PasteScript Template to generate a GitHub hosted python package.
 
 Let you set the package name, a one line description, the Licence (support
 GPL, LGPL, AGPL and BSD - GPLv3 by default) and the author name, email and
-orginisation. The default author name and email are the ones set with
-git-config.
+orginisation variables::
+
+    paster create -t gh_package <project name>
+
+.. Note::
+    The default author name and email variables are the ones set with
+    git-config::
+    
+        git config --global user.name "Damien Lebrun"
+        git config --global user.email dinoboff@hotmail.com
+
+The result::
+
+    <project name>/
+        docs/
+            source/
+                _static
+                _templates/
+                conf.py
+                index.rst
+        src/
+            <package name>/
+                __init__.py
+        support-files/
+        .gitignore
+        bootstrap.py
+        LICENCE
+        MANIFEST.in
+        pavement.py
+        README.rst
+        setup.cfg
+
+* <project name>/pavement.py is the paver configuration file. All the setuptools
+  tasks are available with paver. Paver make the creation of of new task easy.
+  See paver documentation for more details::
+
+    paver paverdocs
+    
+* <project name>/src contain your package. All project details,
+  shared by Paver and Sphinx, are set in
+  <project name>/src/<package name>/__init__.py.
+  
+* <project name>/docs/source/ will contains your documentation source. conf.py
+  is Sphinx configuration file. Check Sphinx documentation for more details.
+  
 """
 from datetime import date
 import os
@@ -70,7 +113,7 @@ DEFAULT_EMAIL = Git(os.getcwd()).config('user.email').strip()
 
 
 class GithubTemplate(Template):
-    """Paver template for GitHub hosted Python package."""
+    """Paver template for a GitHub hosted Python package."""
     _template_dir = 'tmpl/gh'
     summary = ("A basic layout for project hosted on GitHub "
         "and managed with Paver")
