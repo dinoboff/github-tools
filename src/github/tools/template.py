@@ -1,13 +1,22 @@
 """
-Template for for PasteScript
+PasteScript Template to generate a GitHub hosted python package.
+
+Let you set the package name, a one line description, the Licence (support
+GPL, LGPL, AGPL and BSD - GPLv3 by default) and the author name, email and
+orginisation. The default author name and email are the ones set with
+git-config.
 """
 from datetime import date
+import os
+
 from paste.script.templates import var
 from paste.script.templates import Template
+from git import Git
+
 
 YEAR = date.today().year
 
-LICENCE_HEADER ="""%(description)s
+LICENCE_HEADER = """%(description)s
 
 Copyright (c) %(year)s, %(author)s
 All rights reserved.
@@ -54,11 +63,17 @@ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 """
 
+DEFAULT_NAME = Git(os.getcwd()).config('user.name').strip()
+DEFAULT_NAME = DEFAULT_NAME or os.getlogin()
+
+DEFAULT_EMAIL = Git(os.getcwd()).config('user.email').strip()
+
 
 class GithubTemplate(Template):
-    """Buildout template"""
+    """Paver template for GitHub hosted Python package."""
     _template_dir = 'tmpl/gh'
-    summary = "A basic layout for project hosted on GitHub"
+    summary = ("A basic layout for project hosted on GitHub "
+        "and managed with Paver")
     use_cheetah = True
     vars = [
         var('package', 'The package contained',
@@ -69,9 +84,10 @@ class GithubTemplate(Template):
         var('licence',
             'package licence - GPLv2/GPLv3/LGPLv2/LGPLv3/AGPLv3/BSD',
             default='GPLv3'),
-        var('author', 'Author name', '<Author>'),
-        var('author_email', 'Author email'),
-        var('org', 'Organisation name - for licence.', default='<Organisation>'),
+        var('author', 'Author name', DEFAULT_NAME),
+        var('author_email', 'Author email', DEFAULT_EMAIL),
+        var('org', 'Organisation name - for licence.',
+            default='<Organisation>'),
         ]
     def check_vars(self, vars, command):    
         if not command.options.no_interactive and \
