@@ -8,7 +8,7 @@ import webbrowser
 import sys
 import os
 
-from paver.easy import task, options, sh, Bunch, path, needs, cmdopts
+from paver.easy import task, options, sh, Bunch, path, needs, cmdopts, dry, info
 from git import Git
 
 from github.tools.gh_pages import GitHubRepo, Credentials
@@ -54,21 +54,31 @@ def _get_repo(working_copy):
 def gh_register():
     """Create a repository at GitHub and push it your local repository"""
     repo = _get_repo(os.getcwd())
-    project = repo.register(
-        options.setup.name,
-        Credentials.get_credentials(repo),
+    project_name = options.setup.name
+    credentials = Credentials.get_credentials(repo)
+    project = dry(
+        "Create a repository called %s at %s's GitHub account..." % (
+            project_name, credentials.user),
+        repo.register,
+        project_name,
+        credentials,
         description='',
         is_public=True,
         remote_name='origin')
-    webbrowser.open(project.url.http)
+    if project is not None:
+        webbrowser.open(project.url.http)
 
 @task
 def gh_pages_create():
     """Create a submodule to host your Sphinx documentation."""
     _adjust_options()
     repo = _get_repo(os.getcwd())
-    repo.add_gh_pages_submodule(
-        gh_pages_path=str(options.gh_pages.root),
+    gh_pages_root = str(options.gh_pages.root)
+    dry(
+        "Create a submodule at %s and a gh-pages root branch "
+            "to host your gh-pages..." % gh_pages_root,
+        repo.add_gh_pages_submodule,
+        gh_pages_path=gh_pages_root,
         remote_name='origin')
 
 @task
@@ -80,13 +90,21 @@ def gh_pages_update():
     """Rebuild your documentation push it to GitHub"""
     _adjust_options()
     repo = _get_repo(options.gh_pages.root)
-    repo.git.add('.')
+    
+    dry("Add modified and untracked content to git index", repo.git.add, '.')
     if options.gh_pages_update.get('commit_message') is None:
-        print ("No commit message set... "
+        info("No commit message set... "
             "You will have to commit the last changes "
             "and push them to GitHub")
-    repo.git.commit('-m', options.gh_pages_update.commit_message)
-    repo.git.push('origin', 'gh-pages')
+        return
+    msg = options.gh_pages_update.commit_message
+    dry('"Commit any changes with message "%s".' % msg,
+        repo.git.commit, '-m', msg)
+    dry("Push any changes on the gh-pages branch.",
+        repo.git.push, 'origin', 'gh-pages')
+    info('You might want to update your submodule reference:\n\t'
+        'git add %s\n\tgit commit -m "built html doc updated"'
+        % options.gh_pages.root)
 
 @task
 def gh_doc_clean():
@@ -102,16 +120,18 @@ def gh_doc_clean():
     for dir_entry in options.sphinx._htmldir.listdir():
         if dir_entry.isdir():
             if dir_entry.basename() != '.git':
-                dir_entry.rmtree()
+                dry("Remove %s" % dir_entry, dir_entry.rmtree)
         else:
-            dir_entry.unlink()
+            dry('Remove %s' % dir_entry, dir_entry.unlink)
 
 @task
 @needs('github.tools.task.gh_doc_clean')
 def gh_html():
     """Build documentation."""
     _adjust_options()
-    sh('sphinx-build -d %s -b html %s %s' % (
-        options.sphinx._doctrees,
-        options.sphinx._sourcedir,
-        options.sphinx._htmldir))
+    dry('Built html doc from %s to %s' % (
+            options.sphinx._sourcedir, options.sphinx._htmldir),
+        sh, 'sphinx-build -d %s -b html %s %s' % (
+            options.sphinx._doctrees,
+            options.sphinx._sourcedir,
+            options.sphinx._htmldir))
