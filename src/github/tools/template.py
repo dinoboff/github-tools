@@ -1,5 +1,13 @@
 """
+
+Summary:
+--------
+
 PasteScript Template to generate a GitHub hosted python package.
+
+
+Description:
+------------
 
 Let you set the package name, a one line description, the Licence (support
 GPL, LGPL, AGPL and BSD - GPLv3 by default) and the author name, email and
@@ -132,7 +140,8 @@ class GithubTemplate(Template):
         var('org', 'Organisation name - for licence.',
             default='<Organisation>'),
         ]
-    def check_vars(self, vars, command):    
+    
+    def check_vars(self, vars, command):
         if not command.options.no_interactive and \
            not hasattr(command, '_deleted_once'):
             del vars['package']
@@ -140,10 +149,20 @@ class GithubTemplate(Template):
         return Template.check_vars(self, vars, command)
     
     def pre(self, command, output_dir, vars):
+        """
+        Set extra template variables:
+        
+        * "year", current year.
+        * "gitignore", set to ".gitignore".
+        * "licence_body", licence notice of the package.
+        * "gpl_type", for gpl licence (''. 'Lesser' or 'Affero')
+        """
         vars['year'] = YEAR 
         vars['gitignore'] = '.gitignore'
         licence = vars.get('licence')
         vars['licence_body'] = ''
+        vars['gpl_type'] = ''
+        vars['gpl_version'] = ''
         if licence:
             if licence == 'BSD':
                 licence_tmpl = BSD
