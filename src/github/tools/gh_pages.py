@@ -1,5 +1,5 @@
 """
-Models to manage the hosting of a package on GitHub 
+Github-tools Models. 
 """
 from __future__ import with_statement
 from urllib import urlencode
@@ -17,8 +17,7 @@ from git import Git, Repo as _Repo
 
 class Credentials(object):
     """
-    User credential as set with
-    the github.user and github.token git config values
+    User credential for Github API.
     """
     
     def __init__(self, user=None, token=None):
@@ -181,7 +180,18 @@ class GitHubRepo(Repo):
         remote_name='origin',
         master_branch='master'):
         """
-        Add the project to GitHub 
+        Create a repository on GitHub, push your local copy to it,
+        and add a remote alias name for it to your local copy.
+        
+        :param project_name: Name of the repository to create at GitHub.
+        :param credentials: GitHub API credentials, used to create
+            a new GitHub repository.
+        :param description: Repository description.
+        :param is_public: Should the GitHub repository be public.
+        :param remote_name: GitHub repository remote name for your local copy
+            (default to "origin").
+        :param master_branch: Name of the branch to push to GitHub
+            (default to "master") 
         """
         if credentials is None:
             credentials = Credentials.get_credentials(self)
@@ -193,6 +203,12 @@ class GitHubRepo(Repo):
         return project
         
     def add_gh_pages_submodule(self, gh_pages_path, remote_name='origin'):
+        """
+        Add the gh-pages submodule, as a root branch of the GitHub repository.
+        
+        :param gh_pages_path: Path to gh-pages submodule.
+        :param remote_name: Remote name of the GitHub repository.
+        """
         project_url = self.git.config('remote.%s.url' % remote_name).strip()
         self.submodules.add(project_url, gh_pages_path)
         
@@ -214,6 +230,11 @@ class GitHubRepo(Repo):
 
 
 class Submodule(object):
+    """
+    A repository submodule.
+    
+    Hold its details: the module path, its repository url, sha and status.
+    """
         
     def __init__(self, repo, url, module_path, sha=None, status=None):
         self.repo = repo
@@ -235,6 +256,11 @@ class Submodule(object):
 
 
 class SubmoduleDict(dict):
+    """
+    List the submodules of a repository.
+    
+    The keys are submodules name (and path).
+    """
     
     def __init__(self, repo):
         self.repo = repo
@@ -285,5 +311,11 @@ class SubmoduleDict(dict):
 
 
 class GitmoduleReader(file):
+    """
+    Extends file to trim the start of each read line (with readline()).
+    
+    Used by SubmoduleDict to parse .gitmodule files. RawConfigParser doesn't seems
+    to be able to parse those .gitmodule lines that start a tab.
+    """
     def readline(self,*args, **kw):
         return file.readline(self,*args, **kw).lstrip()
