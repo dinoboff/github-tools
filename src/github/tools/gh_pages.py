@@ -96,10 +96,14 @@ class GitHubProject(object):
 
 
 class ProjectUrl(object):
+    """
+    Holds the different GitHub urls of a project.
+    """
     _tmpls = dict(
         ssh='git@github.com:%s/%s.git',
         git='git://github.com/%s/%s.git',
-        http='http://github.com/%s/%s'
+        http='http://github.com/%s/%s',
+        gh_pages='http://%s.github.com/%s'
         )
     
     def __init__(self, project):
@@ -107,15 +111,23 @@ class ProjectUrl(object):
     
     @property  
     def ssh(self):
+        """SSH url to of the repository for read/write access."""
         return self._url('ssh')
     
     @property  
     def git(self):
+        """Git url of the repository for read access."""
         return self._url('git')
     
     @property  
     def http(self):
+        """Url to project home page."""
         return self._url('http')
+    
+    @property
+    def gh_pages(self):
+        """Url for the project's gh-pages."""
+        return self._url('gh_pages')
         
     def _url(self, protocol='ssh'):
         if self.project.name is None:
