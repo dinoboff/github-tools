@@ -53,6 +53,8 @@ def _adjust_options():
             options.gh_pages.root = htmldir
         else:
             options.gh_pages.root = path(gh_pages_root)
+        options.gh_pages.setdefault('remote_name', 'origin')
+        options.gh_pages.setdefault('master_branch', 'master')
         
         options._github_tools_options_adjusted = True
 
@@ -69,9 +71,12 @@ def _get_repo(working_copy):
 
 @task
 def gh_register():
-    """Create a repository at GitHub and push it your local repository"""
+    """Create a repository at GitHub and push it your local repository."""
     repo = _get_repo(os.getcwd())
     project_name = options.setup.name
+    project_description = options.setup.get('description','')
+    remote_name = options.gh_pages.remote_name
+    master_branch = options.gh_pages.master_branch
     credentials = Credentials.get_credentials(repo)
     project = dry(
         "Create a repository called %s at %s's GitHub account..." % (
@@ -79,11 +84,12 @@ def gh_register():
         repo.register,
         project_name,
         credentials,
-        description='',
+        description=project_description,
         is_public=True,
-        remote_name='origin')
+        remote_name=remote_name,
+        master_branch=master_branch)
     if project is not None:
-        info('Opening your project apges:%s', project.url.http)
+        info('Opening your project home pages:%s', project.url.http)
         webbrowser.open(project.url.http)
 
 @task
@@ -91,13 +97,14 @@ def gh_pages_create():
     """Create a submodule to host your Sphinx documentation."""
     _adjust_options()
     repo = _get_repo(os.getcwd())
+    remote_name = options.gh_pages.remote_name
     gh_pages_root = str(options.gh_pages.root)
     dry(
         "Create a submodule at %s and a gh-pages root branch "
             "to host your gh-pages..." % gh_pages_root,
         repo.add_gh_pages_submodule,
         gh_pages_path=gh_pages_root,
-        remote_name='origin')
+        remote_name=remote_name)
 
 @task
 @needs('github.tools.task.gh_html')
@@ -107,6 +114,7 @@ def gh_pages_create():
 def gh_pages_update():
     """Rebuild your documentation push it to GitHub"""
     _adjust_options()
+    remote_name = options.gh_pages.remote_name
     repo = _get_repo(options.gh_pages.root)
     
     dry("Add modified and untracked content to git index", repo.git.add, '.')
@@ -119,7 +127,7 @@ def gh_pages_update():
     dry('"Commit any changes with message "%s".' % msg,
         repo.git.commit, '-m', msg)
     dry("Push any changes on the gh-pages branch.",
-        repo.git.push, 'origin', 'gh-pages')
+        repo.git.push, remote_name, 'gh-pages')
     info('You might want to update your submodule reference:\n\t'
         'git add %s\n\tgit commit -m "built html doc updated"'
         % options.gh_pages.root)
@@ -132,9 +140,10 @@ def gh_doc_clean():
     pull any changes and remove any file
     """
     _adjust_options()
+    remote_name = options.gh_pages.remote_name
     repo = _get_repo(os.getcwd())
     repo.submodules[options.gh_pages.root].update()
-    Git(options.gh_pages.root).pull('origin', 'gh-pages')
+    Git(options.gh_pages.root).pull(remote_name, 'gh-pages')
     for dir_entry in options.sphinx._htmldir.listdir():
         if dir_entry.isdir():
             if dir_entry.basename() != '.git':
