@@ -125,6 +125,8 @@ commit on a remote repository, not to the HEAD of a specific branch)::
    :maxdepth: 2
    
    template
+   task
+   sphinx
 
 Indices and tables
 ==================
