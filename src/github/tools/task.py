@@ -1,7 +1,24 @@
 """
-Created on 19 Apr 2009
+Summary:
+--------
 
-@author: damien
+Paver task to manage Python packages hosted at GitHub.
+
+Configuration:
+--------------
+
+These tasks use:
+
+ * options.setup.name, used for your GitHub repository name.
+ * options.setup.description, used for your GitHub repository description.
+ * options.sphinx.docroot, set by default to docs/.
+ * options.sphinx.build, set by default to <options.sphinx.docroot>/build.
+ * options.sphinx.source, set by default to <options.sphinx.docroot>/source.
+ * options.gh_pages.root, set by default to <options.sphinx.docroot>/build/html
+ * options.gh_pages.remote_name, set by default to origin and used for
+   your github repository remote name.
+ * options.gh_pages.master_branch, set by default to master.
+
 """
 from __future__ import with_statement
 import webbrowser
@@ -15,7 +32,7 @@ from github.tools.gh_pages import GitHubRepo, Credentials
 
 def _adjust_options():
     """
-    Set default sphinx and gh_options.
+    Set default sphinx and gh_pages options.
     """
     if options.get('_github_tools_options_adjusted') is None:
         options.setdefault('sphinx', Bunch())
