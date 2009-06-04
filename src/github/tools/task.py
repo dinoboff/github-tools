@@ -1,11 +1,8 @@
 """
-Summary:
---------
+:Description: Paver task to manage Python packages hosted at GitHub.
 
-Paver task to manage Python packages hosted at GitHub.
-
-Configuration:
---------------
+Configuration
+-------------
 
 These tasks use:
 
@@ -112,7 +109,7 @@ def gh_pages_create():
     ('commit-message=', 'm', 'commit message for the doc update')
 ])
 def gh_pages_update():
-    """Rebuild your documentation push it to GitHub"""
+    """Rebuild your documentation and push it to GitHub"""
     _adjust_options()
     remote_name = options.gh_pages.remote_name
     repo = _get_repo(options.gh_pages.root)

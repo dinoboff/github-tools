@@ -1,21 +1,14 @@
 """
+:Description: PasteScript Template to generate a GitHub hosted python package.
 
-Summary:
---------
-
-PasteScript Template to generate a GitHub hosted python package.
-
-
-Description:
-------------
 
 Let you set the package name, a one line description, the Licence (support
 GPL, LGPL, AGPL and BSD - GPLv3 by default) and the author name, email and
-orginisation variables::
+organisation variables::
 
     paster create -t gh_package <project name>
 
-.. Note::
+.. note::
     The default author name and email variables are the ones set with
     git-config::
     
@@ -45,7 +38,8 @@ The result::
 
 * <project name>/pavement.py is the paver configuration file. All the setuptools
   tasks are available with paver. Paver make the creation of of new task easy.
-  See paver documentation for more details::
+  See `paver documentation <http://www.blueskyonmars.com/projects/paver/>`_
+  for more details::
 
     paver paverdocs
     
@@ -54,7 +48,8 @@ The result::
   <project name>/src/<package name>/__init__.py.
   
 * <project name>/docs/source/ will contains your documentation source. conf.py
-  is Sphinx configuration file. Check Sphinx documentation for more details.
+  is Sphinx configuration file.
+  Check `Sphinx' documentation <http://sphinx.pocoo.org/>`_ for more details.
   
 """
 from datetime import date
@@ -95,9 +90,11 @@ are permitted provided that the following conditions are met:
 
     * Redistributions of source code must retain the above copyright notice,
       this list of conditions and the following disclaimer.
+
     * Redistributions in binary form must reproduce the above copyright notice,
       this list of conditions and the following disclaimer in the documentation
       and/or other materials provided with the distribution.
+
     * Neither the name of the %(org)s nor the names of its contributors
       may be used to endorse or promote products derived from this software
       without specific prior written permission.
@@ -155,7 +152,7 @@ class GithubTemplate(Template):
         * "year", current year.
         * "gitignore", set to ".gitignore".
         * "licence_body", licence notice of the package.
-        * "gpl_type", for gpl licence (''. 'Lesser' or 'Affero')
+        * "gpl_type", for gpl licences
         """
         vars['year'] = YEAR 
         vars['gitignore'] = '.gitignore'

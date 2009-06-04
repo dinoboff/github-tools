@@ -1,9 +1,5 @@
 """
-Summary:
---------
-
-Sphinx extension to remove leading under-scores from directories names
-in the html build output directory.
+:Description: Sphinx extension to remove leading under-scores from directories names in the html build output directory.
 """
 import os
 import shutil
