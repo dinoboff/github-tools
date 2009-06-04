@@ -6,7 +6,8 @@ PROJECT = ${repr($project)}
 DESCRIPTION = __doc__.strip().splitlines()[0]
 AUTHOR = ${repr($author)}
 AUTHOR_EMAIL = ${repr($author_email)}
-VERSION_TUPLE = (0, 1, 0, 'alpha', 3)
+
+VERSION_TUPLE = (0, 1, 0, 'alpha', 1)
 VERSION = '%s.%s' % VERSION_TUPLE[0:2]
 RELEASE = '%s.%s.%s%.1s%s' % VERSION_TUPLE[0:5]
 
