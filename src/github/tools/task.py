@@ -139,8 +139,15 @@ def gh_doc_clean():
     _adjust_options()
     remote_name = options.gh_pages.remote_name
     repo = _get_repo(os.getcwd())
-    repo.submodules[options.gh_pages.root].update()
-    Git(options.gh_pages.root).pull(remote_name, 'gh-pages')
+    dry('Update "%s" submodule' % options.gh_pages.root,
+        repo.submodules[options.gh_pages.root].update)
+    
+    gh_repo = Git(options.gh_pages.root)
+    dry('Create local gh-pages branch',
+        gh_repo.branch, 'gh-pages', remote_name, with_exceptions=False) 
+    dry('Fetch any changes on the gh-pages remote branch',
+        gh_repo.pull, remote_name, 'gh-pages')
+    dry('Checkout gh-pages branch', gh_repo.checkout, 'gh-pages')
     for dir_entry in options.sphinx._htmldir.listdir():
         if dir_entry.isdir():
             if dir_entry.basename() != '.git':
