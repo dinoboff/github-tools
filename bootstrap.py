@@ -977,6 +977,7 @@ def after_install(options, home_dir):
     subprocess.call([join(bin_dir, 'easy_install'), 'paver==1.0.1'])
     subprocess.call([join(bin_dir, 'easy_install'), 'virtualenv'])
     subprocess.call([join(bin_dir, 'easy_install'), 'Nose'])
+    subprocess.call([join(bin_dir, 'easy_install'), 'Mock'])
 
 
 ##file site.py

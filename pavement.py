@@ -86,7 +86,8 @@ options(
         dest_dir='./virtual-env/',
         packages_to_install=[
             'virtualenv',
-            'Nose'
+            'Nose',
+            'Mock',
             ]
         ),
     sphinx=Bunch(
