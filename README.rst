@@ -3,24 +3,24 @@ a basic issue tracker, a wiki and static page hosting (gh-pages). It would be pe
 for hosting a Python package and its documentation if gh-pages was easy to setup
 and was compatible with Sphinx. 
 
-Setting up a root branch for gh-pages and setting Sphinx html build directory as a repository
-is quite complex; especially since Sphinx put its source and static files
-in directories named "_static" and "_source" that gh-pages doesn't want to serve them.
+Setting up a root branch for gh-pages is quite complex; Sphinx put its
+source and static files in directories named "_static" and "_source"
+that gh-pages doesn't want to serve them.
 
 The Sphinx extension (github.tools.sphinx) corrects the last problem; some paver
 tasks (github.tools.task.*) take care of the creation of a Git submodule to host
-the built html documentation; The PasteScript template create the basic layout and
-pavement.py script to get started.
+the built html documentation; The PasteScript template create the basic layout
+and pavement.py script to get started.
 
 Requirements
 ============
 
 This extension and its dependencies require:
 
- * setup-tools,
- * Git (tested with 1.6.2.4),
- * a GitHub user account and, 
- * Python 2.5+.
+ * a GitHub user account and,
+ * Git (tested with 1.6.2.4), 
+ * Python 2.5+,
+ * setup-tools.
  
 It currently has only been tested on Ubuntu 8.04 (and Git built from source)
 with Python 2.5.
@@ -100,7 +100,7 @@ Documentation hosting
 	
 Once the project is created, you can create your gh-pages branch and upload it to github::
 
-	paver gh_pages_create gh_html
+	paver gh_pages_create gh_pages_build
 	
 Paver will create a submodule of your project at docs/build/html,
 create a gh-pages root branch and push the branch to your project.
@@ -110,7 +110,7 @@ It then build the html doc. To clean the html build folder, it update the submod
 
 When your documentation can be published, simply push your gh-pages submodule to GitHub::
 
-	paver gh_pages_update -m "update docs with..."
+	paver gh_pages_build gh_pages_update -m "update docs with..."
 
 You might also want to update the submodule reference (a submodule point to specific
 commit on a remote repository, not to the HEAD of a specific branch)::

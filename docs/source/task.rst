@@ -8,5 +8,5 @@ Paver Task
     .. autofunction:: gh_register
     .. autofunction:: gh_pages_create
     .. autofunction:: gh_pages_update
-    .. autofunction:: gh_doc_clean
-    .. autofunction:: gh_html
+    .. autofunction:: gh_pages_clean
+    .. autofunction:: gh_pages_build

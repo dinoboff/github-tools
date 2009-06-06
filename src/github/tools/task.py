@@ -6,17 +6,25 @@ Configuration
 
 These tasks use:
 
- * options.setup.name, used for your GitHub repository name.
- * options.setup.description, used for your GitHub repository description.
- * options.sphinx.docroot, set by default to docs/.
- * options.sphinx.build, set by default to <options.sphinx.docroot>/build.
- * options.sphinx.source, set by default to <options.sphinx.docroot>/source.
- * options.gh_pages.root, set by default to <options.sphinx.docroot>/build/html
- * options.gh_pages.remote_name, set by default to origin and used for
+ * ``options.setup.name``, used for your GitHub repository name.
+ * ``options.setup.description``, used for your GitHub repository description.
+ * ``options.sphinx.docroot``, set by default to ``docs/``.
+ * ``options.sphinx.build``, set by default to ``build``.
+ * ``options.sphinx.source``, set by default to ``source``.
+ * ``options.gh_pages.root``, local path to gh_pages root; set by default to
+   ``<options.sphinx.docroot>``/``<options.sphinx.build>/html``
+ * ``options.gh_pages.htlmroot``, local path to the html output of your doc
+    built;  set by default ``options.gh_pages.root`` (you might want to host 
+    more than your Sphinx doc there).
+ * ``options.gh_pages.remote_name``, set by default to ``origin` and used for
    your github repository remote name.
- * options.gh_pages.master_branch, set by default to master.
-
+ * ``options.gh_pages.master_branch``, set by default to ``master``.
+ 
+``options.gh_pages.root`` and ``options.gh_pages.htmlroot`` will only be of
+any used if you are using something else than Sphinx (and don't want to use 
+Sphinx options).
 """
+
 from __future__ import with_statement
 import webbrowser
 import sys
@@ -50,6 +58,12 @@ def _adjust_options():
             options.gh_pages.root = htmldir
         else:
             options.gh_pages.root = path(gh_pages_root)
+            
+        gh_pages_htmlroot = options.gh_pages.get('htmlroot', None)
+        if gh_pages_htmlroot is None:
+            options.gh_pages.htmlroot = options.gh_pages.root
+        else:
+            options.gh_pages.htmlroot = path(gh_pages_htmlroot)
         options.gh_pages.setdefault('remote_name', 'origin')
         options.gh_pages.setdefault('master_branch', 'master')
         
@@ -91,7 +105,7 @@ def gh_register():
 
 @task
 def gh_pages_create():
-    """Create a submodule to host your Sphinx documentation."""
+    """Create a submodule to host your documentation."""
     _adjust_options()
     repo = _get_repo(os.getcwd())
     remote_name = options.gh_pages.remote_name
@@ -104,12 +118,11 @@ def gh_pages_create():
         remote_name=remote_name)
 
 @task
-@needs('github.tools.task.gh_html')
 @cmdopts([
     ('commit-message=', 'm', 'commit message for the doc update')
 ])
 def gh_pages_update():
-    """Rebuild your documentation and push it to GitHub"""
+    """Push your documentation it to GitHub."""
     _adjust_options()
     remote_name = options.gh_pages.remote_name
     repo = _get_repo(options.gh_pages.root)
@@ -130,16 +143,16 @@ def gh_pages_update():
         % options.gh_pages.root)
 
 @task
-def gh_doc_clean():
+def gh_pages_clean():
     """Clean your documentation.
     
     Update the submodule (every changes not committed and pushed will be lost),
-    pull any changes and remove any file
+    pull any changes and remove any file in options.gh_pages.docroot.
     """
     _adjust_options()
     remote_name = options.gh_pages.remote_name
     repo = _get_repo(os.getcwd())
-    dry('Update "%s" submodule' % options.gh_pages.root,
+    dry('Update/reset "%s" submodule' % options.gh_pages.root,
         repo.submodules[options.gh_pages.root].update)
     
     gh_repo = Git(options.gh_pages.root)
@@ -148,7 +161,7 @@ def gh_doc_clean():
     dry('Fetch any changes on the gh-pages remote branch',
         gh_repo.pull, remote_name, 'gh-pages')
     dry('Checkout gh-pages branch', gh_repo.checkout, 'gh-pages')
-    for dir_entry in options.sphinx._htmldir.listdir():
+    for dir_entry in options.gh_pages.htmlroot.listdir():
         if dir_entry.isdir():
             if dir_entry.basename() != '.git':
                 dry("Remove %s" % dir_entry, dir_entry.rmtree)
@@ -156,9 +169,9 @@ def gh_doc_clean():
             dry('Remove %s' % dir_entry, dir_entry.unlink)
 
 @task
-@needs('github.tools.task.gh_doc_clean')
-def gh_html():
-    """Build documentation."""
+@needs('github.tools.task.gh_pages_clean')
+def gh_pages_build():
+    """Build your documentation with sphinx."""
     _adjust_options()
     dry('Built html doc from %s to %s' % (
             options.sphinx._sourcedir, options.sphinx._htmldir),

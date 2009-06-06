@@ -11,7 +11,11 @@ except:
     info("bootstrap task not available")
     
 try:
-    from github.tools.task import *
+    from github.tools.task import (
+        gh_pages_build,
+        gh_pages_clean,
+        gh_pages_create,
+        gh_register) 
 except:
     info("github-tools' task not available")
 
@@ -97,4 +101,10 @@ options(
 @needs('generate_setup', 'minilib', 'setuptools.command.sdist')
 def sdist():
     """Overrides sdist to make sure that our setup.py is generated."""
+
+if 'gh_pages_build' in globals():
     
+    @task
+    @needs('gh_pages_build', 'github.tools.task.gh_pages_update')
+    def gh_pages_update():
+        """Overrides github.tools.task to rebuild the doc (with sphinx)."""
