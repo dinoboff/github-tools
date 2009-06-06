@@ -5,13 +5,17 @@ from paver.easy import *
 from paver.setuputils import setup
 from setuptools import find_packages
 
+# import here packages only needed for development
 try:
-    # import here packages only needed for development
     from paver.virtual import bootstrap
-    from github.tools.task import *
 except:
     pass
 
+try:
+    from github.tools.task import *
+except:
+    pass
+    
 _here = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.join(_here, 'src'))
 
@@ -55,6 +59,7 @@ setup(name=PROJECT,
 options(
     virtualenv=Bunch(
         script_name='bootstrap.py',
+        dest_dir='./virtual-env/',
         packages_to_install=[
             'virtualenv',
             'github-tools',

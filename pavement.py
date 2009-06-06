@@ -6,10 +6,14 @@ from paver.setuputils import setup
 from setuptools import find_packages
 
 try:
-    from github.tools.task import *
     from paver.virtual import bootstrap
 except:
-    print "bootstrap task not available"
+    info("bootstrap task not available")
+    
+try:
+    from github.tools.task import *
+except:
+    info("github-tools' task not available")
 
 _here = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.join(_here, 'src'))
@@ -75,8 +79,8 @@ setup(name=github.tools.PROJECT,
 options(
     virtualenv=Bunch(
         script_name='bootstrap.py',
-           packages_to_install=[
-            'github-tools',
+        dest_dir='./virtual-env/',
+        packages_to_install=[
             'virtualenv',
             'Nose'
             ]

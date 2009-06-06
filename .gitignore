@@ -1,8 +1,6 @@
-bin/*
-lib/*
 build/*
 docs/build/doctrees/*
-include/*
 dist/*
 src/*.egg-info/*
+virtual-env/*
 *.pyc

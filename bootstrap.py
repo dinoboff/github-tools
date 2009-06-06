@@ -967,15 +967,14 @@ def create_bootstrap_script(extra_text, python_version=''):
     return content.replace('##EXT' 'END##', extra_text)
 
 def adjust_options(options, args):
-    args[:] = ['.']
+    args[:] = ['./virtual-env/']
 
 def after_install(options, home_dir):
     if sys.platform == 'win32':
         bin_dir = join(home_dir, 'Scripts')
     else:
         bin_dir = join(home_dir, 'bin')
-    subprocess.call([join(bin_dir, 'easy_install'), 'paver==1.0'])
-    subprocess.call([join(bin_dir, 'easy_install'), 'Sphinx'])
+    subprocess.call([join(bin_dir, 'easy_install'), 'paver==1.0.1'])
     subprocess.call([join(bin_dir, 'easy_install'), 'virtualenv'])
     subprocess.call([join(bin_dir, 'easy_install'), 'Nose'])
 
