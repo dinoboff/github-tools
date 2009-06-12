@@ -38,7 +38,7 @@ Installation
 
 The easiest way to get github-tools is if you have setuptools installed::
 
-	easy_install Paver
+	easy_install github-tools
 
 Without setuptools, download it from 
 `Pypi <http://pypi.python.org/pypi/github-tools/>`_ or from 
