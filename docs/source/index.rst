@@ -1,5 +1,5 @@
 =======================================
-Welcome to github.tools' documentation!
+Welcome to github-tools' documentation!
 =======================================
 
 :Author: Damien Lebrun <dinoboff@hotmail.com>

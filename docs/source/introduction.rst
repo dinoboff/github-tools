@@ -1,5 +1,0 @@
-============
-Introduction
-============
-
-.. include:: ../../README.rst
