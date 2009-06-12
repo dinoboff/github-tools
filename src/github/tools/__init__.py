@@ -30,7 +30,7 @@ PROJECT = 'github-tools'
 DESCRIPTION = __doc__.strip().splitlines()[0]
 AUTHOR = 'Damien Lebrun'
 AUTHOR_EMAIL = 'dinoboff@hotmail.com'
-VERSION_TUPLE = (0, 1, 0, 'beta', 1)
+VERSION_TUPLE = (0, 1, 0, '', '')
 VERSION = '%s.%s' % VERSION_TUPLE[0:2]
 RELEASE = '%s.%s.%s%.1s%s' % VERSION_TUPLE[0:5]
 
