@@ -5,12 +5,12 @@ import sys, os
 _here = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.join(_here, '../../../src'))
 
-import github.tools
-version = github.tools.VERSION
-release = github.tools.RELEASE
-project = github.tools.PROJECT
-copyright = github.tools.COPYRIGHT
-author = github.tools.AUTHOR
+import $package
+version = ${package}.VERSION
+release = ${package}.RELEASE
+project = ${package}.PROJECT
+copyright = ${package}.COPYRIGHT
+author = ${package}.AUTHOR
 
 # Extension
 extensions = ['github.tools.sphinx']
