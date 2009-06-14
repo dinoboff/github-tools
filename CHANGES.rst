@@ -2,7 +2,7 @@
 Changes
 =======
 
-0.1.1 (Jun 14, 2009)
+0.1.2 (Jun 14, 2009)
 ====================
 
 - Fixed a bug in in the ``doc/source/conf.py`` created with github-tools' paste
