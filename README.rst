@@ -146,8 +146,6 @@ of a specific branch)::
 Help and Development
 ====================
 
-If you’d like to help out, you can fork the project
+If you'd like to help out, you can fork the project
 at http://github.com/dinoboff/github-tools/ and report any bugs 
 at http://github.com/dinoboff/github-tools/issues.
-
-	
