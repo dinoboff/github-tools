@@ -10,10 +10,11 @@ Welcome to github-tools' documentation!
 .. toctree::
    :maxdepth: 2
    
-   introduction
+   overview
    template
    task
    sphinx
+   changes
 
 Indices and tables
 ==================

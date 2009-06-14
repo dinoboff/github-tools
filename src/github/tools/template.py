@@ -139,6 +139,11 @@ class GithubTemplate(Template):
         ]
     
     def check_vars(self, vars, command):
+        """
+        Reset the package variable in interactive so that project and
+        package names can be different (GitHub and Python
+        Have different restriction on names).
+        """
         if not command.options.no_interactive and \
            not hasattr(command, '_deleted_once'):
             del vars['package']
