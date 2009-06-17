@@ -81,6 +81,12 @@ setup(name=github.tools.PROJECT,
     )
 
 options(
+    minilib=Bunch(
+        extra_files=[
+            'doctools',
+            'virtual'
+            ]
+        ),
     virtualenv=Bunch(
         script_name='bootstrap.py',
         dest_dir='./virtual-env/',
