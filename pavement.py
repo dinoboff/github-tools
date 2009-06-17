@@ -29,7 +29,7 @@ long_description = open('README.rst', 'r').read()
 classifiers = [
     # Get more strings from http://www.python.org/pypi?%3Aaction=list_classifiers
     "Programming Language :: Python :: 2.5", # not yet tested on python 2.6
-    "Development Status :: 3 - Alpha",
+    "Development Status :: 4 - Beta",
     "Environment :: Console",
     "Framework :: Paste",
     "Intended Audience :: Developers",
