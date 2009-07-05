@@ -13,7 +13,7 @@ These tasks use:
  * ``options.sphinx.source``, set by default to ``source``.
  * ``options.gh_pages.root``, local path to gh_pages root; set by default to
    ``<options.sphinx.docroot>``/``<options.sphinx.build>/html``
- * ``options.gh_pages.htlmroot``, local path to the html output of your doc
+ * ``options.gh_pages.htmlroot``, local path to the html output of your doc
     built;  set by default ``options.gh_pages.root`` (you might want to host 
     more than your Sphinx doc there).
  * ``options.gh_pages.remote_name``, set by default to ``origin` and used for
