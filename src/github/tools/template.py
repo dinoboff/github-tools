@@ -111,10 +111,12 @@ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 """
 
-DEFAULT_NAME = Git(os.getcwd()).config('user.name').strip()
+DEFAULT_NAME = Git(os.getcwd()).config(
+    'user.name', with_exceptions=False).strip()
 DEFAULT_NAME = DEFAULT_NAME or os.getlogin()
 
-DEFAULT_EMAIL = Git(os.getcwd()).config('user.email').strip()
+DEFAULT_EMAIL = Git(os.getcwd()).config(
+    'user.email', with_exceptions=False).strip()
 
 
 class GithubTemplate(Template):
