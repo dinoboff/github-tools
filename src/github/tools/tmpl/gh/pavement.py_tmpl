@@ -16,10 +16,8 @@ try:
 except:
     pass
     
-_here = os.path.dirname(os.path.abspath(__file__))
-sys.path.insert(0, os.path.join(_here, 'src'))
 
-from $package import PROJECT, RELEASE, DESCRIPTION, AUTHOR, AUTHOR_EMAIL, LICENCE
+version = "0.1.0"
 
 long_description = open('README.rst', 'r').read()
 
@@ -36,16 +34,17 @@ entry_points="""
     # -*- Entry points: -*-
     """
 
-setup(name=PROJECT,
-    version=RELEASE,
-    description=DESCRIPTION,
+setup(
+    name=${repr($project)},
+    version=version,
+    description=${repr($description)},
     long_description=long_description,
     classifiers=classifiers,
     keywords='',
-    author=AUTHOR,
-    author_email=AUTHOR_EMAIL,
+    author=${repr($author)},
+    author_email=${repr($author_email)},
     url='',
-    license=LICENCE,
+    license=${repr($licence)},
     packages = find_packages('src'),
     package_dir = {'': 'src'},
     namespace_packages=[],
