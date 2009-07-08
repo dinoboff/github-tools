@@ -26,14 +26,4 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 """
 
-PROJECT = 'github-tools'
-DESCRIPTION = __doc__.strip().splitlines()[0]
-AUTHOR = 'Damien Lebrun'
-AUTHOR_EMAIL = 'dinoboff@hotmail.com'
-VERSION_TUPLE = (0, 1, 4, '', '')
-VERSION = '%s.%s' % VERSION_TUPLE[0:2]
-RELEASE = '%s.%s.%s%.1s%s' % VERSION_TUPLE[0:5]
-
-COPYRIGHT = __doc__.strip().splitlines()[2]
-LICENCE = 'BSD'
-LICENCE_NOTICE = '\n'.join(__doc__.strip().splitlines()[2:])
+__author__ = 'Damien Lebrun <dinoboff@hotmail.com>'

@@ -1,19 +1,39 @@
 # -*- coding: utf-8 -*-
 
-import sys, os
+import os
 
-_here = os.path.dirname(os.path.abspath(__file__))
-sys.path.insert(0, os.path.join(_here, '../../../src'))
+from pkg_resources import parse_version
+import pkginfo
 
-import github.tools
-version = github.tools.VERSION
-release = github.tools.RELEASE
-project = github.tools.PROJECT
-copyright = github.tools.COPYRIGHT
-author = github.tools.AUTHOR
+
+class Develop(pkginfo.Develop):
+    
+    def __init__(self):
+        here = os.path.dirname(__file__)
+        egg_path = os.path.join(here, '..', '..', 'src')
+        super(Develop, self).__init__(egg_path)
+    
+    def version_info(self):
+         parsed_version = parse_version(self.version)
+         version = '%s.%s' % tuple([int(x) for x in parsed_version[0:2]])
+         revision = self.version
+         return version, revision
+
+
+egg_info = Develop()
+
+version, release = egg_info.version_info()
+project = egg_info.name
+author = egg_info.author
+copyright = '2009, %s' % author
 
 # Extension
-extensions = ['sphinx.ext.autodoc', 'sphinx.ext.intersphinx', 'sphinx.ext.todo', 'github.tools.sphinx']
+extensions = [
+    'sphinx.ext.autodoc',
+    'sphinx.ext.intersphinx',
+    'sphinx.ext.todo',
+    'github.tools.sphinx',
+    ]
 intersphinx_mapping = {'http://docs.python.org/': None}
 
 # Source
@@ -28,7 +48,7 @@ html_theme = 'default'
 html_static_path = ['_static']
 
 # htmlhelp settings
-htmlhelp_basename = '%sdoc' %project
+htmlhelp_basename = '%sdoc' % project
 
 # latex build settings
 latex_documents = [

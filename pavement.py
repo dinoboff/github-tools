@@ -19,10 +19,8 @@ try:
 except:
     info("github-tools' task not available")
 
-_here = os.path.dirname(os.path.abspath(__file__))
-sys.path.insert(0, os.path.join(_here, 'src'))
 
-import github.tools
+version='0.1.4'
 
 long_description = open('README.rst', 'r').read()
 
@@ -46,10 +44,12 @@ install_requires = [
     'PasteScript',
     'Cheetah',
     'virtualenv',
-    'GitPython'
+    'GitPython',
+    'pkginfo'
     ]
 
 try:
+    # available with python 2.6
     import json
 except ImportError:
     install_requires.append('simplejson')
@@ -60,16 +60,16 @@ entry_points="""
     gh_package = github.tools.template:GithubTemplate
     """
 
-setup(name=github.tools.PROJECT,
-    version=github.tools.RELEASE,
-    description=github.tools.DESCRIPTION,
+setup(name='github-tools',
+    version=version,
+    description='Helpers for Python package hosting at GitHub',
     long_description=long_description,
     classifiers=classifiers,
     keywords='sphinx, github, paster',
-    author=github.tools.AUTHOR,
-    author_email=github.tools.AUTHOR_EMAIL,
+    author='Damien Lebrun',
+    author_email='dinoboff@hotmail.com',
     url='http://dinoboff.github.com/github-tools/',
-    license=github.tools.LICENCE,
+    license='BSD',
     packages = find_packages('src'),
     package_dir = {'': 'src'},
     namespace_packages=['github'],
