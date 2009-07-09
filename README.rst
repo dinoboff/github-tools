@@ -28,7 +28,7 @@ with Python 2.5.
 It should work on os X. For Windows, It should work as long as 
 `GitPython <http://pypi.python.org/pypi/GitPython/>`_ does. However since it 
 simply  start ``git`` subprocesses to work, it might be difficult to use with
-Git installer like `msysgit <http://code.google.com/p/msysgit/>`_ or 
+Git installers like `msysgit <http://code.google.com/p/msysgit/>`_ or 
 `gitextensions <http://code.google.com/p/gitextensions/>`_. 
 
 
@@ -62,8 +62,7 @@ If you are starting from scratch, create the basic layout with paster::
 	paster create -t gh_package <project name>
 	
 The project name will be used for pypi and for your Github repository
-(``http://github.com/<user>/<project name>``). The project details are saved in
-``src/<package name>/__init__.py``.
+(``http://github.com/<user>/<project name>``).
 
 To finish your development environment setup, create a virtual environment
 and deploy your package in development mode::
@@ -85,6 +84,12 @@ Finally::
 Paver add a ``setup.py`` file to your package and a portable paver library
 (required by ``setup.py``), and deploy your application in development mode;
 The "src" folder which contains your package is added to the Python path.
+
+``setup.py`` does not contain much. All ``setup()`` parameters are set in 
+``pavement.py``. All the distutils and setuptools task are available with paver 
+and it is very easy to extends or add your own commands (see 
+`paver documentation <http://www.blueskyonmars.com/projects/paver/>`_
+for more details).  
 
 You are ready to write your package (in ``src/``) and its documentation
 (in ``docs/source``). You should probably start tracking your project now::
@@ -143,7 +148,7 @@ of a specific branch)::
 	git add docs/build/html
 	git commit -m "update gh-pages submodule"
 	
-Help and Development
+Help and development
 ====================
 
 If you'd like to help out, you can fork the project
