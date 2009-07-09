@@ -21,7 +21,7 @@ except:
     info("github-tools' task not available")
 
 
-version='0.1.5'
+version='0.1.6'
 
 long_description = open('README.rst', 'r').read()
 

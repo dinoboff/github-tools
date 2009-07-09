@@ -3,6 +3,14 @@ Changes
 =======
 
 
+0.1.6 (July 9, 2009)
+====================
+- Fixed with github-tools' template. Failed when git's user.name and user.email
+  config variables were not set
+- Removed distribution info from package's ``__init__.py`` file,
+  so that pavement.py doesn't need to the package to get them.
+  Github-tools uses pkginfo to get these info when it needs them.
+
 0.1.4 (July 5, 2009)
 ====================
 - Added required files to MANIFEST.in; the gh_package template was 
