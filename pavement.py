@@ -15,7 +15,8 @@ try:
         gh_pages_build,
         gh_pages_clean,
         gh_pages_create,
-        gh_register) 
+        gh_register)
+    from git import Git
 except:
     info("github-tools' task not available")
 
@@ -109,9 +110,32 @@ options(
 def sdist():
     """Overrides sdist to make sure that our setup.py is generated."""
 
+
 if 'gh_pages_build' in globals():
     
     @task
     @needs('gh_pages_build', 'github.tools.task.gh_pages_update')
     def gh_pages_update():
         """Overrides github.tools.task to rebuild the doc (with sphinx)."""
+    
+    
+    tag_name = 'v%s' % version
+    
+    @task
+    def tag():
+        """tag a new version of this distribution"""
+        git = Git('.')
+        git.pull('origin', 'master')
+        git.tag(tag_name)
+    
+    @task
+    def adjust_options():
+        options.gh_pages_update.setdefault(
+            'commit_message', 'Update doc to %s' % version)
+    
+    @task
+    @needs('sdist', 'tag', 'setuptools.command.upload',
+        'adjust_options', 'gh_pages_update')
+    def upload():
+        """Upload the distribution to pypi, the new tag and the doc to Github"""
+        Git('.').push('origin', 'master', tag_name)

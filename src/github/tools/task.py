@@ -42,6 +42,7 @@ def _adjust_options():
     if options.get('_github_tools_options_adjusted') is None:
         options.setdefault('sphinx', Bunch())
         options.setdefault('gh_pages', Bunch())
+        options.setdefault('gh_pages_update', Bunch())
         
         options.sphinx.docroot = docroot \
             = path( options.sphinx.get('docroot', 'docs'))
