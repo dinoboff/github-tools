@@ -130,8 +130,8 @@ if 'gh_pages_build' in globals():
     
     @task
     def adjust_options():
-        options.gh_pages_update.setdefault(
-            'commit_message', 'Update doc to %s' % version)
+        options.update(
+            gh_pages_update=Bunch(commit_message='Update doc to %s' % version))
     
     @task
     @needs('sdist', 'tag', 'setuptools.command.upload',
