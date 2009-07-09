@@ -169,7 +169,7 @@ def gh_pages_clean():
             dry('Remove %s' % dir_entry, dir_entry.unlink)
 
 @task
-@needs('github.tools.task.gh_pages_clean')
+@needs('github.tools.task.gh_pages_clean', 'setuptools.command.egg_info')
 def gh_pages_build():
     """Build your documentation with sphinx."""
     _adjust_options()
