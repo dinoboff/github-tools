@@ -6,25 +6,16 @@ from pkg_resources import parse_version
 import pkginfo
 
 
-class Develop(pkginfo.Develop):
-    
-    def __init__(self):
-        here = os.path.dirname(__file__)
-        egg_path = os.path.join(here, '..', '..', 'src')
-        super(Develop, self).__init__(egg_path)
-    
-    def version_info(self):
-         parsed_version = parse_version(self.version)
-         version = '%s.%s' % tuple([int(x) for x in parsed_version[0:2]])
-         revision = self.version
-         return version, revision
+def _egg_info(path_to_egg='../../src/'):
+    path_to_egg = os.path.join(
+        os.path.dirname(__file__), path_to_egg)
+    egg_info = pkginfo.Develop(path_to_egg)
+    release = egg_info.version
+    parsed_version = parse_version(release)
+    version = '%s.%s' % tuple([int(x) for x in parsed_version[0:2]])
+    return egg_info.name, egg_info.author, version, release
 
-
-egg_info = Develop()
-
-version, release = egg_info.version_info()
-project = egg_info.name
-author = egg_info.author
+project, author, version, release = _egg_info()
 copyright = '2009, %s' % author
 
 # Extension
