@@ -3,6 +3,10 @@ Changes
 =======
 
 
+0.1.7 (July 18, 2009)
+=====================
+- Fixed bug in gh_register, failing to set default gh_pages options.
+
 0.1.6 (July 9, 2009)
 ====================
 - Fixed with github-tools' template. Failed when git's user.name and user.email
@@ -22,11 +26,9 @@ Changes
 
 0.1.2 (Jun 14, 2009)
 ====================
-
 - Fixed a bug in in the ``doc/source/conf.py`` created with github-tools' paste
   template.
 
 0.1.0 (Jun 12, 2009):
 =====================
-
 - Initial release. 
