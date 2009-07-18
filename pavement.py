@@ -30,7 +30,6 @@ classifiers = [
     "Programming Language :: Python :: 2.5", # not yet tested on python 2.6
     "Development Status :: 4 - Beta",
     "Environment :: Console",
-    "Framework :: Paste",
     "Intended Audience :: Developers",
     "License :: OSI Approved :: BSD License",
     "Operating System :: POSIX :: Linux", # Not tested yet on osx or Windows
