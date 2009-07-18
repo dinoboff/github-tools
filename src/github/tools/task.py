@@ -84,6 +84,7 @@ def _get_repo(working_copy):
 @task
 def gh_register():
     """Create a repository at GitHub and push it your local repository."""
+    _adjust_options()
     repo = _get_repo(os.getcwd())
     project_name = options.setup.name
     project_description = options.setup.get('description','')
