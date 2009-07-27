@@ -39,13 +39,8 @@ classifiers = [
 
 install_requires = [
     'setuptools',
-    'Sphinx',
-    'Paver',
-    'PasteScript',
-    'Cheetah',
-    'virtualenv',
+    'paver-templates>=0.1.0b1',
     'GitPython',
-    'pkginfo'
     ]
 
 try:

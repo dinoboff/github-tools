@@ -975,8 +975,8 @@ def after_install(options, home_dir):
         bin_dir = join(home_dir, 'Scripts')
     else:
         bin_dir = join(home_dir, 'bin')
-    subprocess.call([join(bin_dir, 'easy_install'), 'paver==1.0'])
-    subprocess.call([join(bin_dir, 'easy_install'), 'github.tools'])
+    subprocess.call([join(bin_dir, 'easy_install'), 'paver>=1.0'])
+    subprocess.call([join(bin_dir, 'easy_install'), 'github-tools>=0.1.7'])
     subprocess.call([join(bin_dir, 'easy_install'), 'virtualenv'])
     subprocess.call([join(bin_dir, 'easy_install'), 'Nose'])
 

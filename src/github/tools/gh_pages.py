@@ -102,7 +102,8 @@ class ProjectUrl(object):
         ssh='git@github.com:%s/%s.git',
         git='git://github.com/%s/%s.git',
         http='http://github.com/%s/%s',
-        gh_pages='http://%s.github.com/%s'
+        gh_pages='http://%s.github.com/%s',
+        issue='http://github.com/%s/%s/issues'
         )
     
     def __init__(self, project):
@@ -122,6 +123,11 @@ class ProjectUrl(object):
     def http(self):
         """Url to project home page."""
         return self._url('http')
+    
+    @property
+    def issue(self):
+        """Url to issue tracker"""
+        return self._url('issue')
     
     @property
     def gh_pages(self):

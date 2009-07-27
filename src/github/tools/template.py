@@ -8,33 +8,24 @@ organisation variables::
 
     paster create -t gh_package <project name>
 
-.. note::
-    The default author name and email variables are the ones set with
-    git-config::
-    
-        git config --global user.name "Damien Lebrun"
-        git config --global user.email dinoboff@hotmail.com
 
 The result::
 
     <project name>/
         docs/
-            source/
-                _static
-                _templates/
-                conf.py
-                index.rst
-        src/
-            <package name>/
-                __init__.py
-        support-files/
+            
+            _static
+            _templates/
+            conf.py
+            index.rst
+        <package name>/
+            __init__.py
         .gitignore
         bootstrap.py
         LICENCE
         MANIFEST.in
         pavement.py
         README.rst
-        setup.cfg
 
 * <project name>/pavement.py is the paver configuration file. All the setuptools
   tasks are available with paver. Paver make the creation of of new task easy.
@@ -57,71 +48,30 @@ The result::
     ``pavement.py``, ``docs/source/conf`` and ``src/<package>/__init__.py``.
     
 """
-from datetime import date
+
 import os
-
-from paste.script.templates import var
 from paste.script.templates import Template
-from git import Git
+from github.tools.gh_pages import GitHubProject
 
 
-YEAR = date.today().year
-
-LICENCE_HEADER = """%(description)s
-
-Copyright (c) %(year)s, %(author)s
-All rights reserved.
-
+OPTIONAL_IMPORT = """from github.tools.task import *
 """
 
-GPL = """
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU%(gpl_type)s General Public License as published by
-the Free Software Foundation, either version %(gpl_version)s of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU%(gpl_type)s General Public License for more details.
-
-You should have received a copy of the GNU%(gpl_type)s General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
+VIRTUAL_PACKAGES_TO_INSTALL = """'github-tools',
 """
 
-BSD = """
-Redistribution and use in source and binary forms, with or without modification,
-are permitted provided that the following conditions are met:
+DEVELOPMENT_HELP = """
 
-    * Redistributions of source code must retain the above copyright notice,
-      this list of conditions and the following disclaimer.
 
-    * Redistributions in binary form must reproduce the above copyright notice,
-      this list of conditions and the following disclaimer in the documentation
-      and/or other materials provided with the distribution.
+Help and development
+====================
 
-    * Neither the name of the %(org)s nor the names of its contributors
-      may be used to endorse or promote products derived from this software
-      without specific prior written permission.
+If you'd like to help out, you can fork the project
+at %(project_url)s and report any bugs 
+at %(issue_url)s.
 
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
-THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
-ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
-(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
-LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
-ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
 """
-
-DEFAULT_NAME = Git(os.getcwd()).config(
-    'user.name', with_exceptions=False).strip()
-DEFAULT_NAME = DEFAULT_NAME or os.getlogin()
-
-DEFAULT_EMAIL = Git(os.getcwd()).config(
-    'user.email', with_exceptions=False).strip()
 
 
 class GithubTemplate(Template):
@@ -130,32 +80,7 @@ class GithubTemplate(Template):
     summary = ("A basic layout for project hosted on GitHub "
         "and managed with Paver")
     use_cheetah = True
-    vars = [
-        var('package', 'The package contained',
-            default='example'),
-        var('description',
-            'One-line description of the package',
-            default='<On-line description>'),
-        var('licence',
-            'package licence - GPLv2/GPLv3/LGPLv2/LGPLv3/AGPLv3/BSD',
-            default='GPLv3'),
-        var('author', 'Author name', DEFAULT_NAME),
-        var('author_email', 'Author email', DEFAULT_EMAIL),
-        var('org', 'Organisation name - for licence.',
-            default='<Organisation>'),
-        ]
-    
-    def check_vars(self, vars, command):
-        """
-        Reset the package variable in interactive so that project and
-        package names can be different (GitHub and Python
-        Have different restriction on names).
-        """
-        if not command.options.no_interactive and \
-           not hasattr(command, '_deleted_once'):
-            del vars['package']
-            command._deleted_once = True
-        return Template.check_vars(self, vars, command)
+    required_templates = ['paver-templates#paver_package']
     
     def pre(self, command, output_dir, vars):
         """
@@ -166,38 +91,42 @@ class GithubTemplate(Template):
         * "licence_body", licence notice of the package.
         * "gpl_type", for gpl licences
         """
-        vars['year'] = YEAR 
         vars['gitignore'] = '.gitignore'
-        licence = vars.get('licence')
-        vars['licence_body'] = ''
-        vars['gpl_type'] = ''
-        vars['gpl_version'] = ''
-        if licence:
-            if licence == 'BSD':
-                licence_tmpl = BSD
-            elif licence == 'LGPLv2':
-                vars['gpl_type'] = ' Lesser'
-                vars['gpl_version'] = '2'
-                vars['licence'] = 'LGPLv2'
-                licence_tmpl = GPL
-            elif licence == 'LGPLv3':
-                vars['gpl_type'] = ' Lesser'
-                vars['gpl_version'] = '3'
-                vars['licence'] = 'LGPLv3'
-                licence_tmpl = GPL
-            elif licence == 'AGPLv3':
-                vars['gpl_type'] = ' Affero'
-                vars['gpl_version'] = '3'
-                vars['licence'] = 'AGPLv3'
-                licence_tmpl = GPL
-            elif licence == 'GPLv2':
-                vars['gpl_type'] = ''
-                vars['gpl_version'] = '2'
-                vars['licence'] = 'GPLv2'
-                licence_tmpl = GPL
-            else:
-                vars['gpl_type'] = ''
-                vars['gpl_version'] = '3'
-                vars['licence'] = 'GPL'
-                licence_tmpl = GPL
-            vars['licence_body'] = (LICENCE_HEADER + licence_tmpl) % vars
+        try :
+            project = GitHubProject(name=vars['project'])
+            vars['project_url'] = project.url.http
+            vars['issue_url'] = project.url.issue
+        except AttributeError:
+            vars['project_url'] = (
+                'http://github.com/<GITHUB USER NAME>/%s' % vars['project']
+                ) 
+            vars['issue_url'] = (
+                'http://github.com/<GITHUB USER NAME>/%s/issues' % vars['project']
+                )
+            
+        
+    def post(self, command, output_dir, vars):
+        """
+        Add extra settings to pavement.py
+        """
+        # Edit pavement.py
+        pavement_py = os.path.join(output_dir, 'pavement.py')
+        command.insert_into_file(
+            filename=pavement_py,
+            marker_name='Optional import',
+            text=OPTIONAL_IMPORT,
+            indent=True
+            )
+        command.insert_into_file(
+            filename=pavement_py,
+            marker_name='Virtualenv packages to install',
+            text=VIRTUAL_PACKAGES_TO_INSTALL,
+            indent=True
+            )
+        
+        # Append README.rst with development info
+        readme = open(os.path.join(output_dir, 'README.rst'), 'a')
+        try:
+            readme.write(DEVELOPMENT_HELP % vars)
+        finally:
+            readme.close()
