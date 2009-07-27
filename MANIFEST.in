@@ -1,15 +1,34 @@
-include README.*
-include *.rst
+include CHANGES.rst
 include LICENCE
-include setup.py
-include setup.cfg
+include MANIFEST.in
+include README.rst
+include bootstrap.py
+include docs/Makefile
+include docs/build/html
+include docs/make.bat
+include docs/source/changes.rst
+include docs/source/conf.py
+include docs/source/gh-pages.rst
+include docs/source/index.rst
+include docs/source/overview.rst
+include docs/source/sphinx.rst
+include docs/source/task.rst
+include docs/source/template.rst
 include pavement.py
 include paver-minilib.zip
-include bootstrap.py
-
-recursive-include docs *
-prune docs/build
-
-recursive-include support-files *
-
-recursive-include src/github/tools/tmpl *
+include setup.cfg
+include setup.py
+include src/github/__init__.py
+include src/github/tools/__init__.py
+include src/github/tools/gh_pages.py
+include src/github/tools/sphinx.py
+include src/github/tools/task.py
+include src/github/tools/template.py
+include src/github/tools/test/__init__.py
+include src/github/tools/test/test_gh_pages.py
+include src/github/tools/test/utils.py
+include src/github/tools/tmpl/gh/+gitignore+_tmpl
+include src/github/tools/tmpl/gh/bootstrap.py
+include src/github/tools/tmpl/gh/docs/_static/+gitignore+
+include src/github/tools/tmpl/gh/docs/_templates/+gitignore+
+include support-files/readme.rst

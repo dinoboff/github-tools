@@ -133,3 +133,17 @@ if 'gh_pages_build' in globals():
     def upload():
         """Upload the distribution to pypi, the new tag and the doc to Github"""
         Git('.').push('origin', 'master', tag_name)
+    
+    @task
+    def manifest():
+        """Generate a Manifest using 'git ls-files'"""
+        manifest_in = open('MANIFEST.in', 'w')    
+        try: 
+            includes = (
+                "include %s\n" % f 
+                for f in Git('.').ls_files().splitlines()
+                if not os.path.basename(f).startswith('.')
+                )
+            manifest_in.writelines(includes)
+        finally:
+            manifest_in.close()
