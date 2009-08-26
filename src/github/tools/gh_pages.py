@@ -138,9 +138,10 @@ class ProjectUrl(object):
         if self.project.name is None:
             raise AttributeError('Project name not defined')
         if self.project.owner is None:
-            self.project.owner = Credentials.get_credentials(self.repo).user
+            self.project.owner = Credentials.get_credentials().user
         if not self.project.owner:
-            raise AttributeError('The project owner or the github user need to be set.')
+            raise AttributeError(
+                'The project owner or the github user need to be set.')
         return self._tmpls[protocol] % (self.project.owner, self.project.name)
         
     def __str__(self):

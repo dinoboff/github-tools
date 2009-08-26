@@ -57,6 +57,7 @@ class TestProject(unittest.TestCase):
         eq_('http://github.com/damien/foo', project.url.http)
         eq_('git@github.com:damien/foo.git',project.url.ssh)
         eq_('git://github.com/damien/foo.git',project.url.git)
+        eq_('http://github.com/damien/foo/issues',project.url.issue)
 
     def test_get_project_from_json(self):
         project = GitHubProject.get_project_from_json(
