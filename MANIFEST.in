@@ -3,8 +3,8 @@ include LICENCE
 include MANIFEST.in
 include README.rst
 include bootstrap.py
+include dev-requirements.txt
 include docs/Makefile
-include docs/build/html
 include docs/make.bat
 include docs/source/changes.rst
 include docs/source/conf.py
