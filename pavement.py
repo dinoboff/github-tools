@@ -22,10 +22,20 @@ except ImportError, e:
     ALL_TASKS_LOADED = False
 
 
+def read_file(file_path):
+    return open(file_path).read()
 
-version='0.1.7'
+def write_file(file_path, content=()):
+    f = open(file_path, 'w')
+    try:
+        f.writelines(content)
+    finally:
+        f.close()
 
-long_description = open('README.rst', 'r').read()
+
+version='0.2b1'
+
+long_description = read_file('README.rst') + '\n\n' + read_file('CHANGES.rst') 
 
 classifiers = [
     # Get more strings from http://www.python.org/pypi?%3Aaction=list_classifiers
@@ -108,27 +118,17 @@ if ALL_TASKS_LOADED:
             + options.setup.get('install_requires', [])
             ):
             req.add(d+'\n')
-        
-        f = open('dev-requirements.txt', 'w')
-        try:
-            f.writelines(req)
-        finally:
-            f.close()
+        write_file('dev-requirements.txt', req)
             
     @task
     def manifest():
         """Generate a Manifest using 'git ls-files'"""
-        manifest_in = open('MANIFEST.in', 'w')    
-        try: 
-            includes = (
-                "include %s\n" % f 
-                for f in Git('.').ls_files().splitlines()
-                if (not os.path.basename(f).startswith('.') 
-                    and f != 'docs/build/html')
-                )
-            manifest_in.writelines(includes)
-        finally:
-            manifest_in.close()
+        includes = (
+            "include %s\n" % f
+            for f in Git('.').ls_files().splitlines()
+            if not os.path.basename(f).startswith('.') and f != 'docs/build/html'
+            )
+        write_file('MANIFEST.in', includes)
     
     @task
     @needs('pip_requirements', 'generate_setup', 'manifest', 'minilib',
