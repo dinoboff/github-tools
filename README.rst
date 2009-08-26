@@ -91,8 +91,8 @@ and it is very easy to extends or add your own commands (see
 `paver documentation <http://www.blueskyonmars.com/projects/paver/>`_
 for more details).  
 
-You are ready to write your package (in ``src/``) and its documentation
-(in ``docs/source``). You should probably start tracking your project now::
+You are ready to write your package and its documentation
+(in ``docs/``). You should probably start tracking your project now::
 
 	git init
 	git add .
@@ -126,7 +126,7 @@ and upload it to GitHub::
 
 	paver gh_pages_create gh_pages_build
 	
-Paver will create a submodule of your project at ``docs/build/html``,
+Paver will create a submodule of your project at ``docs/_build/html``,
 create a gh-pages root branch and push the branch to your project.
 It then build the html doc. To clean the html build folder, it update 
 the submodule (you will lose changes not committed and pushed), 
@@ -145,7 +145,7 @@ You might also want to update the submodule reference (a submodule point
 to specific commit on a remote repository, not to the HEAD 
 of a specific branch)::
 
-	git add docs/build/html
+	git add docs/_build/html
 	git commit -m "update gh-pages submodule"
 	
 Help and development

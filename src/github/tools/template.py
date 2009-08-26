@@ -33,19 +33,17 @@ The result::
   for more details::
 
     paver paverdocs
-    
-* <project name>/src contain your package.
   
-* <project name>/docs/source/ will contains your documentation source. conf.py
+* <project name>/docs/ will contains your documentation source. conf.py
   is Sphinx' configuration file.
   Check `Sphinx' documentation <http://sphinx.pocoo.org/>`_ for more details.
   
 .. note::
     The version number, the project name and author name(s) are set in 
-    ``pavement.py`` and shared with ``docs/source/conf.py``.
+    ``pavement.py`` and shared with ``docs/conf.py``.
     
     However licence and copyright information are hard coded into ``LICENCE``,
-    ``pavement.py``, ``docs/source/conf`` and ``src/<package>/__init__.py``.
+    ``pavement.py``, ``docs/conf`` and ``<package>/__init__.py``.
     
 """
 
