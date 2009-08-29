@@ -11,8 +11,7 @@ def _egg_info(path_to_egg='../../src/'):
         os.path.dirname(__file__), path_to_egg)
     egg_info = pkginfo.Develop(path_to_egg)
     release = egg_info.version
-    parsed_version = parse_version(release)
-    version = '%s.%s' % tuple([int(x) for x in parsed_version[0:2]])
+    version = '%s.%s' % tuple(map(int, parse_version(release)[0:2]))
     return egg_info.name, egg_info.author, version, release
 
 project, author, version, release = _egg_info()
