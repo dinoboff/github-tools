@@ -1,10 +1,13 @@
 import os
 import sys
-import sets
 
 from paver.easy import *
 from paver.setuputils import setup
 
+try:
+    Set
+except NameError:
+    from sets import Set
 
 try:
     # Import for dev tasks
@@ -112,7 +115,7 @@ if ALL_TASKS_LOADED:
     @task
     def pip_requirements():
         """Create a pip requirement file."""
-        req = sets.Set()
+        req = Set()
         for d in (
             options.virtualenv.get('packages_to_install', [])
             + options.setup.get('install_requires', [])
