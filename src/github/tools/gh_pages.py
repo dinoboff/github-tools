@@ -34,8 +34,8 @@ class Credentials(object):
         else:
             _git = Git(os.getcwd())
         return cls(
-            user=_git.config('github.user'),
-            token=_git.config('github.token')
+            user=_git.config('github.user', with_exceptions=False),
+            token=_git.config('github.token', with_exceptions=False)
             )
 
 
