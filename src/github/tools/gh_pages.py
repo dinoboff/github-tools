@@ -24,6 +24,9 @@ class Credentials(object):
         self.user = user
         self.token = token
         
+    def __len__(self):
+        return bool(self.user and self.token)
+        
     @classmethod
     def get_credentials(cls, repo=None):
         """

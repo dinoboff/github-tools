@@ -91,6 +91,9 @@ def gh_register():
     remote_name = options.gh_pages.remote_name
     master_branch = options.gh_pages.master_branch
     credentials = Credentials.get_credentials(repo)
+    if not credentials:
+        sys.exit('Your github name and token git config are not set.'
+                 'Check http://github.com/blog/170-token-authentication' % os.getcwd())
     project = dry(
         "Create a repository called %s at %s's GitHub account..." % (
             project_name, credentials.user),
