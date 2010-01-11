@@ -1,0 +1,233 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title><no title> &mdash; github-tools v0.2b1 documentation</title>
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.2b1',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="github-tools v0.2b1 documentation" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             accesskey="M">modules</a> |</li>
+        <li><a href="index.html">github-tools v0.2b1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <p id="module-github.tools.gh_pages">Github-tools Models.</p>
+<dl class="class">
+<dt id="github.tools.gh_pages.Credentials">
+<em class="property">class </em><tt class="descclassname">github.tools.gh_pages.</tt><tt class="descname">Credentials</tt><big>(</big><em>user=None</em>, <em>token=None</em><big>)</big><a class="headerlink" href="#github.tools.gh_pages.Credentials" title="Permalink to this definition">¶</a></dt>
+<dd><p>User credential for Github API.</p>
+<dl class="classmethod">
+<dt id="github.tools.gh_pages.Credentials.get_credentials">
+<em class="property">classmethod </em><tt class="descname">get_credentials</tt><big>(</big><em>repo=None</em><big>)</big><a class="headerlink" href="#github.tools.gh_pages.Credentials.get_credentials" title="Permalink to this definition">¶</a></dt>
+<dd>Get credentials from the github.user and github.token config values</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="github.tools.gh_pages.GitHubProject">
+<em class="property">class </em><tt class="descclassname">github.tools.gh_pages.</tt><tt class="descname">GitHubProject</tt><big>(</big><em>name=None</em>, <em>owner=None</em>, <em>description=None</em>, <em>is_public=None</em><big>)</big><a class="headerlink" href="#github.tools.gh_pages.GitHubProject" title="Permalink to this definition">¶</a></dt>
+<dd><p>GitHub project class</p>
+<dl class="classmethod">
+<dt id="github.tools.gh_pages.GitHubProject.create">
+<em class="property">classmethod </em><tt class="descname">create</tt><big>(</big><em>project_name</em>, <em>credentials</em>, <em>description=''</em>, <em>is_public=True</em><big>)</big><a class="headerlink" href="#github.tools.gh_pages.GitHubProject.create" title="Permalink to this definition">¶</a></dt>
+<dd>Create a new GitHub project.</dd></dl>
+
+<dl class="classmethod">
+<dt id="github.tools.gh_pages.GitHubProject.get_project">
+<em class="property">classmethod </em><tt class="descname">get_project</tt><big>(</big><em>project_name</em>, <em>owner</em><big>)</big><a class="headerlink" href="#github.tools.gh_pages.GitHubProject.get_project" title="Permalink to this definition">¶</a></dt>
+<dd>Fetch the project details from GitHub</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="github.tools.gh_pages.GitHubRepo">
+<em class="property">class </em><tt class="descclassname">github.tools.gh_pages.</tt><tt class="descname">GitHubRepo</tt><big>(</big><em>path=None</em><big>)</big><a class="headerlink" href="#github.tools.gh_pages.GitHubRepo" title="Permalink to this definition">¶</a></dt>
+<dd><p>GitHubRepo instance for a repository cloned to/from GitHub.</p>
+<p>Allow to manage gh-pages as a submodule.</p>
+<dl class="method">
+<dt id="github.tools.gh_pages.GitHubRepo.add_gh_pages_submodule">
+<tt class="descname">add_gh_pages_submodule</tt><big>(</big><em>gh_pages_path</em>, <em>remote_name='origin'</em><big>)</big><a class="headerlink" href="#github.tools.gh_pages.GitHubRepo.add_gh_pages_submodule" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add the gh-pages submodule, as a root branch of the GitHub repository.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><em>gh_pages_path</em> &#8211; Path to gh-pages submodule.</li>
+<li><em>remote_name</em> &#8211; Remote name of the GitHub repository.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="github.tools.gh_pages.GitHubRepo.register">
+<tt class="descname">register</tt><big>(</big><em>project_name</em>, <em>credentials=None</em>, <em>description=''</em>, <em>is_public=True</em>, <em>remote_name='origin'</em>, <em>master_branch='master'</em><big>)</big><a class="headerlink" href="#github.tools.gh_pages.GitHubRepo.register" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a repository on GitHub, push your local copy to it,
+and add a remote alias name for it to your local copy.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><em>project_name</em> &#8211; Name of the repository to create at GitHub.</li>
+<li><em>credentials</em> &#8211; GitHub API credentials, used to create
+a new GitHub repository.</li>
+<li><em>description</em> &#8211; Repository description.</li>
+<li><em>is_public</em> &#8211; Should the GitHub repository be public.</li>
+<li><em>remote_name</em> &#8211; GitHub repository remote name for your local copy
+(default to &#8220;origin&#8221;).</li>
+<li><em>master_branch</em> &#8211; Name of the branch to push to GitHub
+(default to &#8220;master&#8221;)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="github.tools.gh_pages.GitmoduleReader">
+<em class="property">class </em><tt class="descclassname">github.tools.gh_pages.</tt><tt class="descname">GitmoduleReader</tt><a class="headerlink" href="#github.tools.gh_pages.GitmoduleReader" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extends file to trim the start of each read line (with readline()).</p>
+<p>Used by SubmoduleDict to parse .gitmodule files. RawConfigParser doesn&#8217;t seems
+to be able to parse those .gitmodule lines that start a tab.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="github.tools.gh_pages.ProjectUrl">
+<em class="property">class </em><tt class="descclassname">github.tools.gh_pages.</tt><tt class="descname">ProjectUrl</tt><big>(</big><em>project</em><big>)</big><a class="headerlink" href="#github.tools.gh_pages.ProjectUrl" title="Permalink to this definition">¶</a></dt>
+<dd><p>Holds the different GitHub urls of a project.</p>
+<dl class="attribute">
+<dt id="github.tools.gh_pages.ProjectUrl.gh_pages">
+<tt class="descname">gh_pages</tt><a class="headerlink" href="#github.tools.gh_pages.ProjectUrl.gh_pages" title="Permalink to this definition">¶</a></dt>
+<dd>Url for the project&#8217;s gh-pages.</dd></dl>
+
+<dl class="attribute">
+<dt id="github.tools.gh_pages.ProjectUrl.git">
+<tt class="descname">git</tt><a class="headerlink" href="#github.tools.gh_pages.ProjectUrl.git" title="Permalink to this definition">¶</a></dt>
+<dd>Git url of the repository for read access.</dd></dl>
+
+<dl class="attribute">
+<dt id="github.tools.gh_pages.ProjectUrl.http">
+<tt class="descname">http</tt><a class="headerlink" href="#github.tools.gh_pages.ProjectUrl.http" title="Permalink to this definition">¶</a></dt>
+<dd>Url to project home page.</dd></dl>
+
+<dl class="attribute">
+<dt id="github.tools.gh_pages.ProjectUrl.issue">
+<tt class="descname">issue</tt><a class="headerlink" href="#github.tools.gh_pages.ProjectUrl.issue" title="Permalink to this definition">¶</a></dt>
+<dd>Url to issue tracker</dd></dl>
+
+<dl class="attribute">
+<dt id="github.tools.gh_pages.ProjectUrl.ssh">
+<tt class="descname">ssh</tt><a class="headerlink" href="#github.tools.gh_pages.ProjectUrl.ssh" title="Permalink to this definition">¶</a></dt>
+<dd>SSH url to of the repository for read/write access.</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="github.tools.gh_pages.Repo">
+<em class="property">class </em><tt class="descclassname">github.tools.gh_pages.</tt><tt class="descname">Repo</tt><big>(</big><em>path=None</em><big>)</big><a class="headerlink" href="#github.tools.gh_pages.Repo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Overwrite git.Repo to add submodule support
+and create repository with working copy.</p>
+<dl class="classmethod">
+<dt id="github.tools.gh_pages.Repo.create">
+<em class="property">classmethod </em><tt class="descname">create</tt><big>(</big><em>path=None</em>, <em>mk_dir=False</em><big>)</big><a class="headerlink" href="#github.tools.gh_pages.Repo.create" title="Permalink to this definition">¶</a></dt>
+<dd>Initialise the repository WITH a working copy</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="github.tools.gh_pages.Submodule">
+<em class="property">class </em><tt class="descclassname">github.tools.gh_pages.</tt><tt class="descname">Submodule</tt><big>(</big><em>repo</em>, <em>url</em>, <em>module_path</em>, <em>sha=None</em>, <em>status=None</em><big>)</big><a class="headerlink" href="#github.tools.gh_pages.Submodule" title="Permalink to this definition">¶</a></dt>
+<dd><p>A repository submodule.</p>
+<p>Hold its details: the module path, its repository url, sha and status.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="github.tools.gh_pages.SubmoduleDict">
+<em class="property">class </em><tt class="descclassname">github.tools.gh_pages.</tt><tt class="descname">SubmoduleDict</tt><big>(</big><em>repo</em><big>)</big><a class="headerlink" href="#github.tools.gh_pages.SubmoduleDict" title="Permalink to this definition">¶</a></dt>
+<dd><p>List the submodules of a repository.</p>
+<p>The keys are submodules name (and path).</p>
+</dd></dl>
+
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h3>This Page</h3>
+            <ul class="this-page-menu">
+              <li><a href="_sources/gh-pages.txt"
+                     rel="nofollow">Show Source</a></li>
+            </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             >modules</a> |</li>
+        <li><a href="index.html">github-tools v0.2b1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; Copyright 2009, Damien Lebrun.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.3.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,175 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Changes &mdash; github-tools v0.2b1 documentation</title>
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.2b1',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="github-tools v0.2b1 documentation" href="index.html" />
+    <link rel="prev" title="Paver Task" href="task.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             accesskey="M">modules</a> |</li>
+        <li class="right" >
+          <a href="task.html" title="Paver Task"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">github-tools v0.2b1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="changes">
+<h1>Changes<a class="headerlink" href="#changes" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="b2-january-11-2010">
+<h2>0.2b2 (January 11, 2010)<a class="headerlink" href="#b2-january-11-2010" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Fix bug with gh_package template when github.user or github.token
+git config values are not set.</li>
+<li>Disable Sphinx extension and add a .nojekyll file to allow the use of
+folder starting with &#8220;_&#8221;.</li>
+</ul>
+</div>
+<div class="section" id="b1-august-26-2009">
+<h2>0.2b1 (August 26, 2009)<a class="headerlink" href="#b1-august-26-2009" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>New Layout, without a <tt class="docutils literal"><span class="pre">src/</span></tt> folder to hold package(s) or <tt class="docutils literal"><span class="pre">docs/source</span></tt>
+to  hold the ReST documentation - Based on <a class="reference external" href="http://pypi.python.org/pypi/paver-templates/">Paver-templates</a>&#8216; main template.</li>
+</ul>
+</div>
+<div class="section" id="july-18-2009">
+<h2>0.1.7 (July 18, 2009)<a class="headerlink" href="#july-18-2009" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Fixed bug in gh_register, failing to set default gh_pages options.</li>
+</ul>
+</div>
+<div class="section" id="july-9-2009">
+<h2>0.1.6 (July 9, 2009)<a class="headerlink" href="#july-9-2009" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Fixed with github-tools&#8217; template. Failed when git&#8217;s user.name and user.email
+config variables were not set</li>
+<li>Removed distribution info from package&#8217;s <tt class="docutils literal"><span class="pre">__init__.py</span></tt> file,
+so that pavement.py doesn&#8217;t need to the package to get them.
+Github-tools uses pkginfo to get these info when it needs them.</li>
+</ul>
+</div>
+<div class="section" id="july-5-2009">
+<h2>0.1.4 (July 5, 2009)<a class="headerlink" href="#july-5-2009" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Added required files to MANIFEST.in; the gh_package template was
+missing from the distribution.</li>
+</ul>
+</div>
+<div class="section" id="jun-17-2009">
+<h2>0.1.3 (Jun 17, 2009)<a class="headerlink" href="#jun-17-2009" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Fixed a bug with github-tools&#8217; pavement.py.</li>
+</ul>
+</div>
+<div class="section" id="jun-14-2009">
+<h2>0.1.2 (Jun 14, 2009)<a class="headerlink" href="#jun-14-2009" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Fixed a bug in in the <tt class="docutils literal"><span class="pre">doc/source/conf.py</span></tt> created with github-tools&#8217; paste
+template.</li>
+</ul>
+</div>
+<div class="section" id="jun-12-2009">
+<h2>0.1.0 (Jun 12, 2009):<a class="headerlink" href="#jun-12-2009" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Initial release.</li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h3><a href="index.html">Table Of Contents</a></h3>
+            <ul>
+<li><a class="reference external" href="">Changes</a><ul>
+<li><a class="reference external" href="#b2-january-11-2010">0.2b2 (January 11, 2010)</a></li>
+<li><a class="reference external" href="#b1-august-26-2009">0.2b1 (August 26, 2009)</a></li>
+<li><a class="reference external" href="#july-18-2009">0.1.7 (July 18, 2009)</a></li>
+<li><a class="reference external" href="#july-9-2009">0.1.6 (July 9, 2009)</a></li>
+<li><a class="reference external" href="#july-5-2009">0.1.4 (July 5, 2009)</a></li>
+<li><a class="reference external" href="#jun-17-2009">0.1.3 (Jun 17, 2009)</a></li>
+<li><a class="reference external" href="#jun-14-2009">0.1.2 (Jun 14, 2009)</a></li>
+<li><a class="reference external" href="#jun-12-2009">0.1.0 (Jun 12, 2009):</a></li>
+</ul>
+</li>
+</ul>
+
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="task.html"
+                                  title="previous chapter">Paver Task</a></p>
+            <h3>This Page</h3>
+            <ul class="this-page-menu">
+              <li><a href="_sources/changes.txt"
+                     rel="nofollow">Show Source</a></li>
+            </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="task.html" title="Paver Task"
+             >previous</a> |</li>
+        <li><a href="index.html">github-tools v0.2b1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; Copyright 2009, Damien Lebrun.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.3.
+    </div>
+  </body>
+</html>

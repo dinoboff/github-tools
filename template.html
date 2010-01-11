@@ -1,0 +1,185 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>PasteScript template &mdash; github-tools v0.2b1 documentation</title>
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.2b1',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="github-tools v0.2b1 documentation" href="index.html" />
+    <link rel="next" title="Paver Task" href="task.html" />
+    <link rel="prev" title="overview" href="overview.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             accesskey="M">modules</a> |</li>
+        <li class="right" >
+          <a href="task.html" title="Paver Task"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="overview.html" title="overview"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">github-tools v0.2b1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-github.tools.template">
+<h1>PasteScript template<a class="headerlink" href="#module-github.tools.template" title="Permalink to this headline">¶</a></h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Description:</th><td class="field-body">PasteScript Template to generate a GitHub hosted python package.</td>
+</tr>
+</tbody>
+</table>
+<p>Let you set the package name, a one line description, the Licence (support
+GPL, LGPL, AGPL and BSD - GPLv3 by default) and the author name, email and
+organisation variables:</p>
+<div class="highlight-python"><pre>paster create -t gh_package &lt;project name&gt;</pre>
+</div>
+<p>The result:</p>
+<div class="highlight-python"><pre>&lt;project name&gt;/
+    docs/
+        
+        _static
+        _templates/
+        conf.py
+        index.rst
+    &lt;package name&gt;/
+        __init__.py
+    .gitignore
+    bootstrap.py
+    LICENCE
+    MANIFEST.in
+    pavement.py
+    README.rst</pre>
+</div>
+<ul>
+<li><p class="first">&lt;project name&gt;/pavement.py is the paver configuration file. All the setuptools
+tasks are available with paver. Paver make the creation of of new task easy.
+See <a class="reference external" href="http://www.blueskyonmars.com/projects/paver/">paver documentation</a>
+for more details:</p>
+<div class="highlight-python"><pre>paver paverdocs</pre>
+</div>
+</li>
+<li><p class="first">&lt;project name&gt;/docs/ will contains your documentation source. conf.py
+is Sphinx&#8217; configuration file.
+Check <a class="reference external" href="http://sphinx.pocoo.org/">Sphinx&#8217; documentation</a> for more details.</p>
+</li>
+</ul>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>The version number, the project name and author name(s) are set in 
+<tt class="docutils literal"><span class="pre">pavement.py</span></tt> and shared with <tt class="docutils literal"><span class="pre">docs/conf.py</span></tt>.</p>
+<p class="last">However licence and copyright information are hard coded into <tt class="docutils literal"><span class="pre">LICENCE</span></tt>,
+<tt class="docutils literal"><span class="pre">pavement.py</span></tt>, <tt class="docutils literal"><span class="pre">docs/conf</span></tt> and <tt class="docutils literal"><span class="pre">&lt;package&gt;/__init__.py</span></tt>.</p>
+</div>
+<dl class="class">
+<dt id="github.tools.template.GithubTemplate">
+<em class="property">class </em><tt class="descclassname">github.tools.template.</tt><tt class="descname">GithubTemplate</tt><big>(</big><em>name</em><big>)</big><a class="headerlink" href="#github.tools.template.GithubTemplate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Paver template for a GitHub hosted Python package.</p>
+<dl class="method">
+<dt id="github.tools.template.GithubTemplate.post">
+<tt class="descname">post</tt><big>(</big><em>command</em>, <em>output_dir</em>, <em>vars</em><big>)</big><a class="headerlink" href="#github.tools.template.GithubTemplate.post" title="Permalink to this definition">¶</a></dt>
+<dd>Add extra settings to pavement.py</dd></dl>
+
+<dl class="method">
+<dt id="github.tools.template.GithubTemplate.pre">
+<tt class="descname">pre</tt><big>(</big><em>command</em>, <em>output_dir</em>, <em>vars</em><big>)</big><a class="headerlink" href="#github.tools.template.GithubTemplate.pre" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set extra template variables:</p>
+<ul class="simple">
+<li>&#8220;year&#8221;, current year.</li>
+<li>&#8220;gitignore&#8221;, set to &#8220;.gitignore&#8221;.</li>
+<li>&#8220;licence_body&#8221;, licence notice of the package.</li>
+<li>&#8220;gpl_type&#8221;, for gpl licences</li>
+</ul>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="overview.html"
+                                  title="previous chapter">overview</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="task.html"
+                                  title="next chapter">Paver Task</a></p>
+            <h3>This Page</h3>
+            <ul class="this-page-menu">
+              <li><a href="_sources/template.txt"
+                     rel="nofollow">Show Source</a></li>
+            </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="task.html" title="Paver Task"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="overview.html" title="overview"
+             >previous</a> |</li>
+        <li><a href="index.html">github-tools v0.2b1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; Copyright 2009, Damien Lebrun.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.3.
+    </div>
+  </body>
+</html>

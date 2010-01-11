@@ -1,0 +1,192 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Paver Task &mdash; github-tools v0.2b1 documentation</title>
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.2b1',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="github-tools v0.2b1 documentation" href="index.html" />
+    <link rel="next" title="Changes" href="changes.html" />
+    <link rel="prev" title="PasteScript template" href="template.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             accesskey="M">modules</a> |</li>
+        <li class="right" >
+          <a href="changes.html" title="Changes"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="template.html" title="PasteScript template"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">github-tools v0.2b1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-github.tools.task">
+<h1>Paver Task<a class="headerlink" href="#module-github.tools.task" title="Permalink to this headline">¶</a></h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Description:</th><td class="field-body">Paver task to manage Python packages hosted at GitHub.</td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="configuration">
+<h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h2>
+<p>These tasks use:</p>
+<blockquote>
+<ul>
+<li><p class="first"><tt class="docutils literal"><span class="pre">options.setup.name</span></tt>, used for your GitHub repository name.</p>
+</li>
+<li><p class="first"><tt class="docutils literal"><span class="pre">options.setup.description</span></tt>, used for your GitHub repository description.</p>
+</li>
+<li><p class="first"><tt class="docutils literal"><span class="pre">options.sphinx.docroot</span></tt>, set by default to <tt class="docutils literal"><span class="pre">docs/</span></tt>.</p>
+</li>
+<li><p class="first"><tt class="docutils literal"><span class="pre">options.sphinx.build</span></tt>, set by default to <tt class="docutils literal"><span class="pre">build</span></tt>.</p>
+</li>
+<li><p class="first"><tt class="docutils literal"><span class="pre">options.sphinx.source</span></tt>, set by default to <tt class="docutils literal"><span class="pre">source</span></tt>.</p>
+</li>
+<li><p class="first"><tt class="docutils literal"><span class="pre">options.gh_pages.root</span></tt>, local path to gh_pages root; set by default to
+<tt class="docutils literal"><span class="pre">&lt;options.sphinx.docroot&gt;</span></tt>/<tt class="docutils literal"><span class="pre">&lt;options.sphinx.build&gt;/html</span></tt></p>
+</li>
+<li><dl class="first docutils">
+<dt><tt class="docutils literal"><span class="pre">options.gh_pages.htmlroot</span></tt>, local path to the html output of your doc</dt>
+<dd><p class="first last">built;  set by default <tt class="docutils literal"><span class="pre">options.gh_pages.root</span></tt> (you might want to host 
+more than your Sphinx doc there).</p>
+</dd>
+</dl>
+</li>
+<li><p class="first"><tt class="docutils literal"><span class="pre">options.gh_pages.remote_name</span></tt>, set by default to <a href="#id1"><span class="problematic" id="id2">``</span></a>origin` and used for
+your github repository remote name.</p>
+</li>
+<li><p class="first"><tt class="docutils literal"><span class="pre">options.gh_pages.master_branch</span></tt>, set by default to <tt class="docutils literal"><span class="pre">master</span></tt>.</p>
+</li>
+</ul>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">options.gh_pages.root</span></tt> and <tt class="docutils literal"><span class="pre">options.gh_pages.htmlroot</span></tt> will only be of
+any used if you are using something else than Sphinx (and don&#8217;t want to use 
+Sphinx options).</p>
+<dl class="function">
+<dt id="github.tools.task.gh_register">
+<tt class="descclassname">github.tools.task.</tt><tt class="descname">gh_register</tt><big>(</big><em>func</em><big>)</big><a class="headerlink" href="#github.tools.task.gh_register" title="Permalink to this definition">¶</a></dt>
+<dd>Create a repository at GitHub and push it your local repository.</dd></dl>
+
+<dl class="function">
+<dt id="github.tools.task.gh_pages_create">
+<tt class="descclassname">github.tools.task.</tt><tt class="descname">gh_pages_create</tt><big>(</big><em>func</em><big>)</big><a class="headerlink" href="#github.tools.task.gh_pages_create" title="Permalink to this definition">¶</a></dt>
+<dd>Create a submodule to host your documentation.</dd></dl>
+
+<dl class="function">
+<dt id="github.tools.task.gh_pages_update">
+<tt class="descclassname">github.tools.task.</tt><tt class="descname">gh_pages_update</tt><big>(</big><em>func</em><big>)</big><a class="headerlink" href="#github.tools.task.gh_pages_update" title="Permalink to this definition">¶</a></dt>
+<dd>Push your documentation it to GitHub.</dd></dl>
+
+<dl class="function">
+<dt id="github.tools.task.gh_pages_clean">
+<tt class="descclassname">github.tools.task.</tt><tt class="descname">gh_pages_clean</tt><big>(</big><em>func</em><big>)</big><a class="headerlink" href="#github.tools.task.gh_pages_clean" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clean your documentation.</p>
+<p>Update the submodule (every changes not committed and pushed will be lost),
+pull any changes and remove any file in options.gh_pages.docroot.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="github.tools.task.gh_pages_build">
+<tt class="descclassname">github.tools.task.</tt><tt class="descname">gh_pages_build</tt><big>(</big><em>func</em><big>)</big><a class="headerlink" href="#github.tools.task.gh_pages_build" title="Permalink to this definition">¶</a></dt>
+<dd>Build your documentation with sphinx.</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h3><a href="index.html">Table Of Contents</a></h3>
+            <ul>
+<li><a class="reference external" href="">Paver Task</a><ul>
+<li><a class="reference external" href="#configuration">Configuration</a></li>
+</ul>
+</li>
+</ul>
+
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="template.html"
+                                  title="previous chapter">PasteScript template</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="changes.html"
+                                  title="next chapter">Changes</a></p>
+            <h3>This Page</h3>
+            <ul class="this-page-menu">
+              <li><a href="_sources/task.txt"
+                     rel="nofollow">Show Source</a></li>
+            </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="changes.html" title="Changes"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="template.html" title="PasteScript template"
+             >previous</a> |</li>
+        <li><a href="index.html">github-tools v0.2b1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; Copyright 2009, Damien Lebrun.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.3.
+    </div>
+  </body>
+</html>
