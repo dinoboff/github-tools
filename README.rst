@@ -1,17 +1,11 @@
 Github features Git repository hosting, a download page for your Git tags 
 (or any archive), a basic issue tracker, a wiki and static page hosting 
-(`gh-pages <http://pages.github.com/>`_). It would be perfect for hosting a 
-Python package and its documentation if gh-pages was easy to setup and 
-was compatible with `Sphinx <http://sphinx.pocoo.org>`_. 
+(`gh-pages <http://pages.github.com/>`_).
 
-Setting up a root branch for gh-pages is quite complex; Sphinx put its
-source and static files in directories named "_static" and "_source"
-that gh-pages doesn't want to serve them.
+Github-tools defines a PasteScript template to create the basic layout,
+some paver tasks (``github.tools.task.*``) to host your package documentation
+on gh-pages and the pavement.py script to get started.
 
-The Sphinx extension (``github.tools.sphinx``) corrects the last problem; 
-some paver tasks (``github.tools.task.*``) take care of the creation of a Git 
-submodule to host the built html documentation; The PasteScript template 
-create the basic layout and pavement.py script to get started.
 
 Requirements
 ============
@@ -23,14 +17,13 @@ This extension and its dependencies require:
  * Python 2.5+.
  
 It currently has only been tested on Ubuntu 8.04 (and Git built from source)
-with Python 2.5.
+with Python 2.5 and Mac OS X 10.6 with python 2.6.
 
-It should work on os X. For Windows, It should work as long as 
+For Windows, It should work as long as 
 `GitPython <http://pypi.python.org/pypi/GitPython/>`_ does. However since it 
 simply  start ``git`` subprocesses to work, it might be difficult to use with
 Git installers like `msysgit <http://code.google.com/p/msysgit/>`_ or 
 `gitextensions <http://code.google.com/p/gitextensions/>`_. 
-
 
 
 Installation

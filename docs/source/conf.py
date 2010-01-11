@@ -22,7 +22,6 @@ extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.intersphinx',
     'sphinx.ext.todo',
-    'github.tools.sphinx',
     ]
 intersphinx_mapping = {'http://docs.python.org/': None}
 

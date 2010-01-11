@@ -184,3 +184,8 @@ def gh_pages_build():
             options.sphinx._doctrees,
             options.sphinx._sourcedir,
             options.sphinx._htmldir))
+    # a .nojekyll file at the root of the gh-pages repository disable
+    # Jekyll (http://github.com/blog/572-bypassing-jekyll-on-github-pages)
+    no_jekyll = options.gh_pages.htmlroot / '.nojekyll'
+    no_jekyll.touch()
+    

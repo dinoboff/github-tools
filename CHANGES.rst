@@ -1,6 +1,13 @@
 Changes
 =======
 
+0.2b2 (January 11, 2010)
+------------------------
+
+- Fix bug with gh_package template when github.user or github.token
+  git config values are not set.
+- Disable Sphinx extension and add a .nojekyll file to allow the use of 
+  folder starting with "_".
 
 0.2b1 (August 26, 2009)
 -----------------------
