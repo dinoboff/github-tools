@@ -178,12 +178,10 @@ def gh_pages_clean():
 def gh_pages_build():
     """Build your documentation with sphinx."""
     _adjust_options()
-    dry('Built html doc from %s to %s' % (
-            options.sphinx._sourcedir, options.sphinx._htmldir),
-        sh, 'sphinx-build -d %s -b html %s %s' % (
-            options.sphinx._doctrees,
-            options.sphinx._sourcedir,
-            options.sphinx._htmldir))
+    sh('sphinx-build -d %s -b html %s %s' % (
+        options.sphinx._doctrees,
+        options.sphinx._sourcedir,
+        options.sphinx._htmldir))
     # a .nojekyll file at the root of the gh-pages repository disable
     # Jekyll (http://github.com/blog/572-bypassing-jekyll-on-github-pages)
     no_jekyll = options.gh_pages.htmlroot / '.nojekyll'
