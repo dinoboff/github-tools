@@ -31,7 +31,7 @@ Installation
 
 The easiest way to get github-tools is if you have setuptools installed::
 
-	easy_install github-tools
+	easy_install github-tools[template]
 
 Without setuptools, download it from 
 `Pypi <http://pypi.python.org/pypi/github-tools/>`_ or from 

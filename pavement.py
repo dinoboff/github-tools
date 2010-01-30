@@ -54,10 +54,13 @@ classifiers = [
 
 install_requires = [
     'setuptools>=0.6c9',
-    'paver-templates>=0.1.0b3',
     'GitPython>=0.1.6',
     'simplejson',
     ]
+
+extras_require = {
+    'template':  ['paver-templates>=0.1.0b3'],
+}
 
 entry_points="""
     # -*- Entry points: -*-
@@ -82,6 +85,7 @@ setup(name='github-tools',
     test_suite='nose.collector',
     zip_safe=False,
     install_requires=install_requires,
+    extras_require=extras_require,
     entry_points=entry_points,
     )
 
@@ -108,6 +112,9 @@ options(
         ),
     )
 
+@task
+def test_sphinx():
+    sh("sphinx-build -d docs/build/doctrees -b html docs/source docs/build/html")
 
 
 if ALL_TASKS_LOADED:
@@ -115,7 +122,7 @@ if ALL_TASKS_LOADED:
     @task
     def pip_requirements():
         """Create a pip requirement file."""
-        req = Set()
+        req = set()
         for d in (
             options.virtualenv.get('packages_to_install', [])
             + options.setup.get('install_requires', [])
