@@ -11,7 +11,6 @@ include docs/source/conf.py
 include docs/source/gh-pages.rst
 include docs/source/index.rst
 include docs/source/overview.rst
-include docs/source/sphinx.rst
 include docs/source/task.rst
 include docs/source/template.rst
 include pavement.py
