@@ -55,6 +55,7 @@ classifiers = [
 install_requires = [
     'setuptools>=0.6c9',
     'GitPython>=0.1.6',
+    'Sphinx',
     'simplejson',
     ]
 
