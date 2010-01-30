@@ -5,9 +5,9 @@ from paver.easy import *
 from paver.setuputils import setup
 
 try:
-    Set
+    set
 except NameError:
-    from sets import Set
+    from sets import Set as set
 
 try:
     # Import for dev tasks
