@@ -29,16 +29,9 @@ Git installers like `msysgit <http://code.google.com/p/msysgit/>`_ or
 Installation
 ============
 
-The easiest way to get github-tools is if you have setuptools installed::
+The easiest way to get github-tools is if you have setuptools / distribute installed::
 
 	easy_install github-tools[template]
-
-Without setuptools, download it from 
-`Pypi <http://pypi.python.org/pypi/github-tools/>`_ or from 
-`Github <http://github.com/dinoboff/github-tools/downloads>`_, untar it
-and run::
-
-	python setup.py install
 
 The current development version can be found at 
 http://github.com/dinoboff/github-tools/tarball/master.

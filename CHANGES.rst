@@ -1,6 +1,11 @@
 Changes
 =======
 
+0.2b3 (January 30, 2010)
+------------------------
+
+- Installation of Template dependencies is now optional.
+
 0.2b2 (January 11, 2010)
 ------------------------
 
