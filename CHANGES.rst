@@ -1,6 +1,11 @@
 Changes
 =======
 
+master (April 23, 2010)
+-----------------------
+
+- Change GitPython requirement. Requires version 1.6 specifically (version 0.3 will track GitPython 2.x)
+
 0.2b3 (January 30, 2010)
 ------------------------
 
