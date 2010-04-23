@@ -65,7 +65,7 @@ in your shell, run::
 
 Finally::
 
-	paver generate_setup minilib develop.
+	paver generate_setup minilib develop
 
 Paver add a ``setup.py`` file to your package and a portable paver library
 (required by ``setup.py``), and deploy your application in development mode;
