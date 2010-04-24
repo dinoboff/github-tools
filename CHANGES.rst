@@ -1,10 +1,11 @@
 Changes
 =======
 
-master (April 23, 2010)
+0.2-rc1 (April 24, 2010)
 -----------------------
 
-- Change GitPython requirement. Requires version 1.6 specifically (version 0.3 will track GitPython 2.x)
+- Change GitPython requirement. Requires version 1.6 specifically (version 0.3 will track GitPython 2.x).
+- The gh_pages_clean task correctly checkout the gh-pages branch in the gh-pages submodule.
 
 0.2b3 (January 30, 2010)
 ------------------------
