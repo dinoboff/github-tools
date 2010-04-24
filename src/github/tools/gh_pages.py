@@ -6,6 +6,7 @@ from urllib import urlencode
 from ConfigParser import RawConfigParser
 import urllib2
 import os
+from git.errors import GitCommandError
 
 try:
     import json #@UnresolvedImport
@@ -237,6 +238,20 @@ class GitHubRepo(Repo):
         # update submodule
         self.git.add(gh_pages_path)
         self.git.commit('-m', 'update gh-pages submodule')
+        
+    def validate_gh_pages_submodule(self, gh_pages_path):
+        module = self.submodules[gh_pages_path]
+        gh_pages_repo = Repo(module.path)
+        
+        try:
+            active_branch = gh_pages_repo.active_branch
+        except GitCommandError:
+            active_branch = 'no active branch'
+        
+        if active_branch != 'gh-pages':
+            raise ValueError('"gh-pages" is not the current branch of the "%s" submodule.' % gh_pages_path)
+        
+        return module
 
 
 class Submodule(object):
@@ -252,6 +267,7 @@ class Submodule(object):
         self.url = url
         self.sha = sha
         self.status = status
+        self.git = Git(self.path)
         
     def init(self, msg=None):
         if msg is None:
@@ -262,6 +278,8 @@ class Submodule(object):
             self.repo.git.commit('-m', msg)
     
     def update(self):
+        if self.status == '-':
+            self.repo.git.submodule('init', self.path)
         self.repo.git.submodule('update', self.path)
 
 

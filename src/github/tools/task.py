@@ -34,6 +34,8 @@ from paver.easy import task, options, sh, Bunch, path, needs, cmdopts, dry, info
 from git import Git
 
 from github.tools.gh_pages import GitHubRepo, Credentials
+from git.errors import GitCommandError
+
 
 def _adjust_options():
     """
@@ -129,10 +131,22 @@ def gh_pages_create():
 def gh_pages_update():
     """Push your documentation it to GitHub."""
     _adjust_options()
-    remote_name = options.gh_pages.remote_name
-    repo = _get_repo(options.gh_pages.root)
     
-    dry("Add modified and untracked content to git index", repo.git.add, '.')
+    
+    repo = _get_repo(os.getcwd())
+    remote_name = options.gh_pages.remote_name
+    gh_pages_root = options.gh_pages.root
+    
+    # The gh_pages submodule need to checkout the
+    try:
+        gh_pages = repo.validate_gh_pages_submodule(gh_pages_root)
+    except ValueError, e:
+        sys.exit('You gh-pages is either not set or set on the wrong branch. \n'
+                 'Update your submodule, checkout the gh-pages branch ' 
+                 '(cd %s; git checkout -t origin/gh-pages) '
+                 'and rebuild the documentation.' % gh_pages_root)
+    
+    dry("Add modified and untracked content to git index", gh_pages.git.add, '.')
     if options.gh_pages_update.get('commit_message') is None:
         info("No commit message set... "
             "You will have to commit the last changes "
@@ -140,9 +154,9 @@ def gh_pages_update():
         return
     msg = options.gh_pages_update.commit_message
     dry('"Commit any changes with message "%s".' % msg,
-        repo.git.commit, '-m', msg)
+        gh_pages.git.commit, '-m', msg)
     dry("Push any changes on the gh-pages branch.",
-        repo.git.push, remote_name, 'gh-pages')
+        gh_pages.git.push, remote_name, 'gh-pages')
     info('You might want to update your submodule reference:\n\t'
         'git add %s\n\tgit commit -m "built html doc updated"'
         % options.gh_pages.root)
@@ -157,15 +171,21 @@ def gh_pages_clean():
     _adjust_options()
     remote_name = options.gh_pages.remote_name
     repo = _get_repo(os.getcwd())
-    dry('Update/reset "%s" submodule' % options.gh_pages.root,
-        repo.submodules[options.gh_pages.root].update)
+    module = repo.submodules.get(options.gh_pages.root, None)
+    if module is None:
+        info("You have not yet created the gh-pages submodule.")
+        return
     
-    gh_repo = Git(options.gh_pages.root)
-    dry('Create local gh-pages branch',
-        gh_repo.branch, 'gh-pages', remote_name, with_exceptions=False) 
-    dry('Fetch any changes on the gh-pages remote branch',
-        gh_repo.pull, remote_name, 'gh-pages')
-    dry('Checkout gh-pages branch', gh_repo.checkout, 'gh-pages')
+    module.update()
+    try:
+        dry('Checkout the gh-pages branch', module.git.checkout, 'gh-pages') 
+    except GitCommandError:
+        dry('Checkout the gh-pages remote branch', 
+            module.git.checkout, '-t', '%s/gh-pages' % remote_name)
+    else:
+        dry('Fetch any changes on the gh-pages remote branch',
+            module.git.pull, remote_name, 'gh-pages')
+    
     for dir_entry in options.gh_pages.htmlroot.listdir():
         if dir_entry.isdir():
             if dir_entry.basename() != '.git':
