@@ -36,7 +36,7 @@ def write_file(file_path, content=()):
         f.close()
 
 
-version='0.2b3'
+version='0.2-rc1'
 
 long_description = read_file('README.rst') + '\n\n' + read_file('CHANGES.rst') 
 
