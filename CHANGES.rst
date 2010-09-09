@@ -1,6 +1,16 @@
 Changes
 =======
 
+0.2-rc1+1 (September 09, 2010)
+------------------------------
+
+- Bump version number to 0.2-rc1+1
+- require GitPython==0.1.7 (lower versions aren't available on PyPi any
+  more)
+
+  - dev-requirements.txt
+  - pavement.py
+
 0.2-rc1 (April 24, 2010)
 ------------------------
 
