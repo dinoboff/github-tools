@@ -13,7 +13,8 @@ Requirements
 This extension and its dependencies require:
 
  * a GitHub user account and,
- * Git (tested with 1.6.2.4), 
+ * Git (tested with 1.6.2.4),
+ * GitPython 0.1.7
  * Python 2.5+.
  
 It currently has only been tested on Ubuntu 8.04 (and Git built from source)

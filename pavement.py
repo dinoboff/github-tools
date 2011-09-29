@@ -36,7 +36,7 @@ def write_file(file_path, content=()):
         f.close()
 
 
-version='0.2rc1'
+version='0.2rc1+1'
 
 long_description = read_file('README.rst') + '\n\n' + read_file('CHANGES.rst') 
 
@@ -54,7 +54,7 @@ classifiers = [
 
 install_requires = [
     'setuptools>=0.6c9',
-    'GitPython==0.1.6',
+    'GitPython==0.1.7',
     'Sphinx',
     'simplejson',
     ]

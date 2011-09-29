@@ -1,6 +1,6 @@
 simplejson
 Sphinx
-GitPython==0.1.6
+GitPython==0.1.7
 Mock>=0.5.0
 Nose>=0.10.4
 setuptools>=0.6c9
